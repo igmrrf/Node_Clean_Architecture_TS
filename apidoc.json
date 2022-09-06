@@ -1,0 +1,8 @@
+{
+  "name": "npp_server",
+  "version": "1.0.0",
+  "description": "npp_server",
+  "title": "npp api",
+  "url": "http://127.0.0.1:30123/v1",
+  "sampleUrl": "http://127.0.0.1:30123/v1"
+}
