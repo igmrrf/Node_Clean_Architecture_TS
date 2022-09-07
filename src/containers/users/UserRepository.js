@@ -3,8 +3,8 @@ import PaymentService from "base/payments/Stripe";
 import BaseRepository from "base/repositories";
 import config from "config";
 import jwt from "helpers/jwt";
-import ResourceNotFoundError from "interfaces/http/errors/ResourceNotFoundError";
-import UnauthorizedError from "interfaces/http/errors/Unauthorized";
+import ResourceNotFoundError from "interfaces/rest/errors/ResourceNotFoundError";
+import UnauthorizedError from "interfaces/rest/errors/Unauthorized";
 import { random } from "lodash";
 
 class UserRepository extends BaseRepository {

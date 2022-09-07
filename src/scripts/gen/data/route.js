@@ -1,8 +1,8 @@
 module.exports = (name) => `import { Router } from "express";
 import { makeInvoker } from "awilix-express";
 import validateError from "module/validator.module";
-import CheckAuth from "interfaces/http/middlewares/checkAuthentication";
-import MethodNotAllowedHandler from "interfaces/http/middlewares/methodNotAllowed";
+import CheckAuth from "interfaces/rest/middlewares/checkAuthentication";
+import MethodNotAllowedHandler from "interfaces/rest/middlewares/methodNotAllowed";
 import ${name}Controller from "./${name}Controller";
 import ${name}Validation from "./${name}Validation";
 

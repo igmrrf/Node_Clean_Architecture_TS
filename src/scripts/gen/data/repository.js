@@ -1,7 +1,5 @@
-module.exports = (
-  name,
-) => `import ResourceNotFoundError from "interfaces/http/errors/ResourceNotFoundError";
-import ConflictError from "interfaces/http/errors/ConflictError";
+module.exports = (name) => `import ResourceNotFoundError from "interfaces/rest/errors/ResourceNotFoundError";
+import ConflictError from "interfaces/rest/errors/ConflictError";
 import BaseRepository from "base/repositories";
 
 class ${name}Repository extends BaseRepository {

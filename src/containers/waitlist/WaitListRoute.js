@@ -2,8 +2,8 @@ import { Router } from "express";
 import { makeInvoker } from "awilix-express";
 import validator from "express-joi-validation";
 import { waitlistSchema } from "containers/waitlist/WaitListValidation";
-import CheckAuth from "interfaces/http/middlewares/checkAuthentication";
-import MethodNotAllowedHandler from "interfaces/http/middlewares/methodNotAllowed";
+import CheckAuth from "interfaces/rest/middlewares/checkAuthentication";
+import MethodNotAllowedHandler from "interfaces/rest/middlewares/methodNotAllowed";
 import WaitListController from "./WaitListController";
 
 const router = Router();

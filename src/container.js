@@ -4,8 +4,8 @@ import config from "config";
 import MongoDB from "base/database/MongoDBManager";
 import mongodbModels from "containers/models";
 import logger from "base/logger";
-import routes from "interfaces/http/routes/router";
-import httpServer from "interfaces/http/Server";
+import routes from "interfaces/rest/routes/router";
+import restServer from "interfaces/rest/Server";
 import StorageService from "base/storage/Cloudinary";
 import PaymentService from "base/payments/Stripe";
 
@@ -20,7 +20,7 @@ container.register({
   logger: asValue(logger),
   containerMiddleware: asValue(scopePerRequest(container)),
   routes: asFunction(routes),
-  httpServer: asClass(httpServer),
+  restServer: asClass(restServer),
   storageService: asClass(StorageService).singleton(),
   paymentService: asClass(PaymentService).singleton(),
 });

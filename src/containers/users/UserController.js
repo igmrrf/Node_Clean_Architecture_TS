@@ -1,4 +1,4 @@
-import BaseController from "interfaces/http/controllers";
+import BaseController from "interfaces/rest/controllers";
 import { pick } from "lodash";
 
 class UserController extends BaseController {

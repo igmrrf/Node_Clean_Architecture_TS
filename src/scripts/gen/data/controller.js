@@ -1,6 +1,4 @@
-module.exports = (
-  name,
-) => `import BaseController from "interfaces/http/controllers";
+module.exports = (name) => `import BaseController from "interfaces/rest/controllers";
 import { pick } from "lodash";
 
 class ${name}Controller extends BaseController {
