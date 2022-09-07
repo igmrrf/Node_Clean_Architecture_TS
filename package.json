@@ -29,7 +29,7 @@
   "keywords": [],
   "author": "TLDO",
   "dependencies": {
-    "@faker-js/faker": "^6.1.2",
+    "@faker-js/faker": "^7.0.0",
     "@sendgrid/mail": "^7.6.2",
     "apidoc": "^0.53.0",
     "awilix": "^4.3.3",
