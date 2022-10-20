@@ -1,9 +1,9 @@
-import WaitLists from "containers/waitlist/WaitListModel";
+import WaitLists from "containers/waitList/WaitListModel";
 import { GraphQLID, GraphQLList } from "graphql";
 import { debug } from "winston";
 import { WaitListType } from "../types";
 
-const waitlistQuery = {
+const waitListQuery = {
   type: WaitListType,
   args: {
     id: {
@@ -17,7 +17,7 @@ const waitlistQuery = {
   },
 };
 
-const waitlistsQuery = {
+const waitListsQuery = {
   type: new GraphQLList(WaitListType),
   resolve(parent, args) {
     debug({ parent, args });
@@ -26,6 +26,6 @@ const waitlistsQuery = {
 };
 
 module.exports = {
-  waitlistQuery,
-  waitlistsQuery,
+  waitListQuery,
+  waitListsQuery,
 };

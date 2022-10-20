@@ -1,32 +1,32 @@
 const { GraphQLObjectType, GraphQLSchema } = require("graphql");
-const { authorQuery, authorsQuery } = require("./queries/user");
-const { bookQuery, booksQuery } = require("./queries/waitlist");
-const { createBook: addBook, updateBook: editBook, deleteBook: removeBook } = require("./mutations/waitlist");
+const { userQuery, usersQuery } = require("./queries/user");
+const { waitListQuery, waitListsQuery } = require("./queries/waitList");
 const {
-  createAuthor: addAuthor,
-  updateAuthor: editAuthor,
-  deleteAuthor: removeAuthor,
-} = require("./mutations/user");
+  createWaitList: addWaitList,
+  updateWaitList: editWaitList,
+  deleteWaitList: removeWaitList,
+} = require("./mutations/waitList");
+const { createUser: addUser, updateUser: editUser, deleteUser: removeUser } = require("./mutations/user");
 
 const Query = new GraphQLObjectType({
   name: "Query",
   fields: {
-    book: bookQuery,
-    books: booksQuery,
-    author: authorQuery,
-    authors: authorsQuery,
+    waitList: waitListQuery,
+    waitLists: waitListsQuery,
+    user: userQuery,
+    users: usersQuery,
   },
 });
 
 const Mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
-    addAuthor,
-    removeAuthor,
-    editAuthor,
-    addBook,
-    removeBook,
-    editBook,
+    addUser,
+    removeUser,
+    editUser,
+    addWaitList,
+    removeWaitList,
+    editWaitList,
   },
 });
 

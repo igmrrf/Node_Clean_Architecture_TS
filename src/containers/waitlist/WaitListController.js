@@ -1,5 +1,5 @@
-import { pick } from "lodash";
 import BaseController from "interfaces/rest/controllers";
+import { pick } from "lodash";
 
 class WaitListController extends BaseController {
   constructor({ createWaitList, updateWaitList, deleteWaitList, getWaitLists, getWaitList }) {

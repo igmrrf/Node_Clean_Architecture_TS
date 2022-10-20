@@ -10,8 +10,8 @@
   "scripts": {
     "prestart": "npm run build && npm run db:seed",
     "build": "babel src --delete-dir-on-start --copy-files --ignore \"src/**/*.spec.js\" --no-copy-ignored -d dist",
-    "start:dev": "cross-env NODE_ENV=production pm2-runtime start ecosystem.config.js --env production",
-    "start": "nodemon \"src/index.js\"",
+    "start": "cross-env NODE_ENV=production pm2-runtime start ecosystem.config.js --env production",
+    "start:dev": "nodemon \"src/index.js\"",
     "test": "NODE_ENV=test nyc --reporter=text --reporter=html --reporter=lcov mocha --require @babel/register \"src/**/**/*.spec.js\" --exit --timeout 20000 --recursive",
     "lint": "node_modules/.bin/eslint \"./src/**/*.js\"",
     "db:seed": "node \"dist/scripts/seedDb\"",

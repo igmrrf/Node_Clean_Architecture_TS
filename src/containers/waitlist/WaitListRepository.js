@@ -1,9 +1,9 @@
 /* eslint-disable import/named */
 /* eslint-disable no-unused-vars */
-import ResourceNotFoundError from "interfaces/rest/errors/ResourceNotFoundError";
-import ConflictError from "interfaces/rest/errors/ConflictError";
-import { waitListWelcome } from "utils/mail";
 import BaseRepository from "base/repositories";
+import ConflictError from "interfaces/rest/errors/ConflictError";
+import ResourceNotFoundError from "interfaces/rest/errors/ResourceNotFoundError";
+import { waitListWelcome } from "utils/mail";
 
 class WaitListRepository extends BaseRepository {
   constructor({ models: { WaitList } }) {

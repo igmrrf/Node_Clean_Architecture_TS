@@ -1,11 +1,11 @@
-const BookTypeInject = require("./WaitList");
-const AuthorTypeInject = require("./User");
+const WaitListTypeInject = require("./WaitList");
+const UserTypeInject = require("./User");
 
 const types = {};
-types.BookType = BookTypeInject(types);
-types.AuthorType = AuthorTypeInject(types);
+types.WaitListType = WaitListTypeInject(types);
+types.UserType = UserTypeInject(types);
 
-const { BookType } = types;
-const { AuthorType } = types;
+const { UserType } = types;
+const { WaitListType } = types;
 
-module.exports = { BookType, AuthorType };
+module.exports = { UserType, WaitListType };

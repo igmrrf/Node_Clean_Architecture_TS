@@ -1,7 +1,7 @@
-import { Router } from "express";
 import { makeInvoker } from "awilix-express";
+import { waitListSchema } from "containers/waitList/WaitListValidation";
+import { Router } from "express";
 import validator from "express-joi-validation";
-import { waitlistSchema } from "containers/waitlist/WaitListValidation";
 import CheckAuth from "interfaces/rest/middlewares/checkAuthentication";
 import MethodNotAllowedHandler from "interfaces/rest/middlewares/methodNotAllowed";
 import WaitListController from "./WaitListController";
@@ -148,12 +148,12 @@ router
   .route("/:id")
   .delete(Auth("allowAny"), api("deleteWaitList"))
   .get(Auth("allowAny"), api("getWaitList"))
-  .put(Auth("allowAny"), validate.body(waitlistSchema), api("updateWaitList"))
+  .put(Auth("allowAny"), validate.body(waitListSchema), api("updateWaitList"))
   .all(MethodNotAllowedHandler);
 
 router
   .route("/")
-  .post(Auth("allowAny"), validate.body(waitlistSchema), api("createWaitList"))
+  .post(Auth("allowAny"), validate.body(waitListSchema), api("createWaitList"))
   .get(Auth("allowAny"), api("getWaitLists"))
   .all(MethodNotAllowedHandler);
 

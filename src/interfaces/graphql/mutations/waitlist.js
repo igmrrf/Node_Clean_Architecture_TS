@@ -1,4 +1,4 @@
-import WaitList from "containers/waitlist/WaitListModel";
+import WaitList from "containers/waitList/WaitListModel";
 import { GraphQLID, GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLString } from "graphql";
 import { debug } from "winston";
 import { WaitListType } from "../types";
@@ -13,12 +13,12 @@ const createWaitList = {
   resolve(parent, args) {
     debug({ parent, args });
     const { name, pages, userId } = args;
-    const waitlist = new WaitList({
+    const waitList = new WaitList({
       name,
       pages,
       userId,
     });
-    return waitlist.save();
+    return waitList.save();
   },
 };
 

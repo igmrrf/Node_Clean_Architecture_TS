@@ -1,7 +1,7 @@
+import WaitList from "containers/waitList/WaitListEntity";
 import mongoose from "mongoose";
-import WaitList from "containers/waitlist/WaitListEntity";
 
-const waitlistSchema = new mongoose.Schema(
+const waitListSchema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -49,6 +49,6 @@ const waitlistSchema = new mongoose.Schema(
   },
 );
 
-waitlistSchema.loadClass(WaitList);
+waitListSchema.loadClass(WaitList);
 
-export default mongoose.model("WaitList", waitlistSchema);
+export default mongoose.model("WaitList", waitListSchema);

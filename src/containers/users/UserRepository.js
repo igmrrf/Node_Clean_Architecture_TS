@@ -94,10 +94,10 @@ class UserRepository extends BaseRepository {
     const { eth_address } = payload;
     const user = await this.find({ eth_address }, undefined, { lean: false }, false);
     let data = {};
-    const waitlistInfo = await this.WaitList.findOne({ eth_address });
+    const waitListInfo = await this.WaitList.findOne({ eth_address });
 
-    if (waitlistInfo) {
-      data = waitlistInfo.getPublicFields();
+    if (waitListInfo) {
+      data = waitListInfo.getPublicFields();
     }
 
     if (!user) {

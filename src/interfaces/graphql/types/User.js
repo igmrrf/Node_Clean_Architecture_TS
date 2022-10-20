@@ -1,5 +1,5 @@
-import WaitLists from "containers/waitlist/WaitListModel";
-import { GraphQLID, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString } from "graphql";
+import WaitLists from "containers/waitList/WaitListModel";
+import { GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString } from "graphql";
 import { debug } from "winston";
 
 const UserType = (types) =>
@@ -11,8 +11,8 @@ const UserType = (types) =>
       age: { type: GraphQLInt },
       email: { type: GraphQLString },
       mobile: { type: GraphQLString },
-      book: {
-        type: new GraphQLList(types.BookType),
+      waitList: {
+        type: types.waitListType,
         resolve(parent, args) {
           debug({ parent, args });
           return WaitLists.find({ userId: parent.id });

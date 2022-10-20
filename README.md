@@ -1,6 +1,6 @@
 # Node Clean Architecture Template
 
-[![Pull Request Check CI](https://github.com/georgeben/Node-Clean-Architecture-Template/actions/workflows/ci.yml/badge.svg)](https://github.com/georgeben/Node-Clean-Architecture-Template/actions/workflows/ci.yml) \
+[![Pull Request Check CI](https://github.com/igmrrf/Node_Clean_Architecture/actions/workflows/ci.yml/badge.svg)](https://github.com/igmrrf/Node_Clean_Architecture/actions/workflows/ci.yml) \
 A simple starter template for NodeJS apps using clean architecture
 
 ## About Clean Architecture
@@ -23,7 +23,7 @@ To learn more about clean architecture, please read this article https://blog.cl
 
 ## Getting started
 
-1. Clone the repository by running `git clone git@github.com:georgeben/Node-Clean-Architecture-Template.git`
+1. Clone the repository by running `git clone git@github.com:igmrrf/Node_Clean_Architecture.git`
 2. Create a `.env` file in the root directory.
 3. Copy the content of env.sample into the just created .env file, and add the appropriate values.
 4. Install the dependencies by running `npm install`
@@ -129,6 +129,4 @@ I was trying to make this as lean as possible, but if you think there's somethin
 
 ## Author
 
-[The LDO](https://github.com/igmrrf)
-
-[Source](https://github.com/georgeben/Node-Clean-Architecture-Template)
+[The LDO](https://github.com/igmrrf/Node_Clean_Architecture)
