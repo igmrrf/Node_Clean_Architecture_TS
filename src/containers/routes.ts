@@ -10,11 +10,7 @@ import { Router } from "express";
 
 const router = Router();
 fs.readdirSync(__dirname)
-  .filter(
-    (folder) =>
-      folder !== "models.js" &&
-      fs.lstatSync(`${__dirname}/${folder}`).isDirectory(),
-  )
+  .filter((folder) => folder !== "models.js" && fs.lstatSync(`${__dirname}/${folder}`).isDirectory())
   .forEach((folder) => {
     const newDir = `${__dirname}/${folder}`;
     fs.readdirSync(newDir)
