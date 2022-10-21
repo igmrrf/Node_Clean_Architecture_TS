@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import sgMail from "@sendgrid/mail";
 import config from "config";
-import { orderMail, WaitListMail } from "../helpers/template";
+import { orderMail, WaitListMail } from "helpers/template";
 
 sgMail.setApiKey(config.get("sendgrid.apiKey"));
 

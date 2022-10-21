@@ -2,7 +2,7 @@ import { Client, Models } from "bitpay-sdk";
 
 const config = "public/BitPay.config.json";
 
-class Bitpay {
+class BitPay {
   constructor() {
     const client = new Client(config);
     this.client = client;
@@ -37,4 +37,4 @@ class Bitpay {
   }
 }
 
-export default Bitpay;
+export default BitPay;

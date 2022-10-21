@@ -1,13 +1,13 @@
-import { createContainer, asClass, InjectionMode, Lifetime, asFunction, asValue } from "awilix";
+import { asClass, asFunction, asValue, createContainer, InjectionMode, Lifetime } from "awilix";
 import { scopePerRequest } from "awilix-express";
-import config from "config";
 import MongoDB from "base/database/MongoDBManager";
-import mongodbModels from "containers/models";
 import logger from "base/logger";
+import PaymentService from "base/payments/Stripe";
+import StorageService from "base/storage/Cloudinary";
+import config from "config";
+import mongodbModels from "containers/models";
 import routes from "interfaces/rest/routes/router";
 import restServer from "interfaces/rest/Server";
-import StorageService from "base/storage/Cloudinary";
-import PaymentService from "base/payments/Stripe";
 
 const container = createContainer({
   injectionMode: InjectionMode.PROXY,
@@ -55,7 +55,7 @@ container.loadModules(
   [
     // Load entities
     [
-      "containers/*/*Enitiy.js",
+      "containers/*/*Entity.js",
       {
         lifetime: Lifetime.SCOPED,
         register: asClass,

@@ -18,6 +18,7 @@ fs.readdirSync(__dirname)
       .forEach((file) => {
         const model = require(path.join(newDir, file)).default;
         models[model.modelName] = model;
+        console.log({ model, models, type1: typeof model, type2: typeof models });
       });
   });
 

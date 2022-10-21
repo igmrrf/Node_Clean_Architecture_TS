@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import ResourceNotFoundError from "interfaces/rest/errors/ResourceNotFoundError";
+import ResourceNotFoundError from "errors/ResourceNotFoundError";
 import InvalidPayloadError from "interfaces/rest/errors/InvalidPayloadError";
+import mongoose from "mongoose";
 
 class BaseRepository {
   /**
