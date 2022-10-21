@@ -1,0 +1,57 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    // Target latest version of ECMAScript.
+    "target": "esnext",
+    // Don't emit; allow Babel to transform files.
+    // "noEmit": true,
+    // Ensure that .d.ts files are created by tsc, but not .js files
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    // Ensure that Babel can safely transpile files in the TypeScript project
+    "isolatedModules": true /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "lib": ["es6"],
+    "module": "commonjs" /* Specify what module code is generated. */,
+    "rootDir": "src" /* Specify the root folder within your source files. */,
+    "resolveJsonModule": true /* Enable importing .json files. */,
+
+    "allowJs": true /* Allow JavaScript files to be a part of your program. Use the 'checkJS' option to get errors from these files. */,
+    "outDir": "dist" /* Specify an output folder for all emitted files. */,
+    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
+    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+
+    "strict": true /* Enable all strict type-checking options. */,
+    "noImplicitAny": true /* Enable error reporting for expressions and declarations with an implied 'any' type. */,
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "importHelpers": true,
+
+    "baseUrl": "./",
+
+    "paths": {
+      "*": ["src/*"],
+      "src/*": ["src/*"],
+      "app/*": ["src/app/*"],
+      "spec/*": ["src/spec/*"],
+      "base/*": ["src/base/*"],
+      "test/*": ["src/test/*"],
+      "utils/*": ["src/utils/*"],
+      "config/*": ["src/config/*"],
+      "domain/*": ["src/domain/*"],
+      "modules/*": ["src/modules/*"],
+      "helpers/*": ["src/helpers/*"],
+      "rest/*": ["src/interfaces/rest/*"],
+      "grpc/*": ["src/interfaces/grpc/*"],
+      "containers/*": ["src/containers/*"],
+      "interfaces/*": ["src/interfaces/*"],
+      "graphql/*": ["src/interfaces/graphql/*"],
+      "errors/*": ["src/interfaces/rest/errors/*"],
+      "routes/*": ["src/interfaces/rest/routes/*"],
+      "controllers/*": ["src/interfaces/rest/controllers/*"],
+      "validations/*": ["src/interfaces/rest/validations/*"],
+      "middlewares/*": ["src/interfaces/rest/middlewares/*"]
+    }
+  },
+  "exclude": ["node_modules", "**/node_modules/*", "dist", "doc", "client"]
+}

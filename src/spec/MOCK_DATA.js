@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { faker } from "@faker-js/faker";
 import mongoose from "mongoose";
 
@@ -12,7 +13,6 @@ const MOCK_DATA = {
     first_name: "Test",
     last_name: "Password",
     account_verified: true,
-    eth_address: "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
     coupons: [
       {
         code: "WAITLIST",

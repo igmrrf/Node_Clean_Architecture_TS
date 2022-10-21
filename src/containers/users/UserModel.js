@@ -3,11 +3,6 @@ import User from "./UserEntity";
 
 const userSchema = new mongoose.Schema(
   {
-    eth_address: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     username: {
       type: String,
       required: true,
@@ -37,9 +32,7 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    nft: {
-      type: String,
-    },
+
     referrals: [
       {
         type: mongoose.Types.ObjectId,

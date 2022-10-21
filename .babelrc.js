@@ -17,21 +17,25 @@ const plugins = () => {
         cwd: "babelrc",
         alias: {
           src: "./src",
-          test: "./src/test/",
-          spec: "./src/spec/",
           app: "./src/app",
+          spec: "./src/spec/",
           base: "./src/base/",
-          module: "./src/modules/",
-          containers: "./src/containers",
+          test: "./src/test/",
           utils: "./src/utils/",
-          helpers: "./src/helpers/",
-          config: "./src/config/",
+          config: "./src/config",
           domain: "./src/domain/",
+          modules: "./src/modules/",
+          helpers: "./src/helpers/",
+          containers: "./src/containers",
           interfaces: "./src/interfaces/",
-          routes: "./src/interfaces/http/routes",
-          controllers: "./src/interfaces/http/controllers",
-          Validations: "./src/interfaces/http/validations",
-          middleware: "./src/interfaces/http/middleware",
+          rest: "src/interfaces/rest/*",
+          grpc: "src/interfaces/grpc/*",
+          graphql: "src/interfaces/graphql/*",
+          errors: "./src/interfaces/rest/errors",
+          routes: "./src/interfaces/rest/routes",
+          controllers: "./src/interfaces/rest/controllers",
+          Validations: "./src/interfaces/rest/validations",
+          middlewares: "./src/interfaces/rest/middlewares",
         },
       },
     ],
@@ -42,14 +46,12 @@ const plugins = () => {
 
 module.exports = {
   presets: [
-    [
-      "@babel/preset-env",
-      {
-        targets: {
-          node: "12.18.3",
-        },
+    "@babel/preset-typescript",
+    {
+      targets: {
+        node: "16.18.0",
       },
-    ],
+    },
   ],
   plugins: plugins(),
 };

@@ -1,9 +1,9 @@
 /* eslint-disable import/named */
 /* eslint-disable no-unused-vars */
-import ResourceNotFoundError from "interfaces/http/errors/ResourceNotFoundError";
-import ConflictError from "interfaces/http/errors/ConflictError";
-import { waitListWelcome } from "utils/mail";
 import BaseRepository from "base/repositories";
+import ConflictError from "interfaces/rest/errors/ConflictError";
+import ResourceNotFoundError from "interfaces/rest/errors/ResourceNotFoundError";
+import { waitListWelcome } from "utils/mail";
 
 class WaitListRepository extends BaseRepository {
   constructor({ models: { WaitList } }) {
@@ -12,11 +12,7 @@ class WaitListRepository extends BaseRepository {
   }
 
   async create(payload) {
-    const existingWaitList = await this.find(
-      { email: payload.email },
-      { email: 1 },
-      { lean: true },
-    );
+    const existingWaitList = await this.find({ email: payload.email }, { email: 1 }, { lean: true });
 
     if (existingWaitList) {
       throw new ConflictError("You have already joined the waiting list");
@@ -41,12 +37,7 @@ class WaitListRepository extends BaseRepository {
   }
 
   async get() {
-    const existingWaitList = await this.find(
-      {},
-      undefined,
-      { lean: true },
-      true,
-    );
+    const existingWaitList = await this.find({}, undefined, { lean: true }, true);
     return existingWaitList;
   }
 

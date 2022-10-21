@@ -2,7 +2,7 @@ import { Client, Models } from "bitpay-sdk";
 
 const config = "public/BitPay.config.json";
 
-class Bitpay {
+class BitPay {
   constructor() {
     const client = new Client(config);
     this.client = client;
@@ -20,10 +20,10 @@ class Bitpay {
     invoiceData.orderId = order;
     invoiceData.fullNotifications = true;
     invoiceData.extendedNotifications = true;
-    invoiceData.notificationURL = "https://test.nftprintpro.com/confirm";
-    invoiceData.redirectURL = `https://test.nftprintpro.com/confirm/${order}`;
-    invoiceData.itemDesc = "NFT Print.";
-    invoiceData.notificationEmail = "[dev@nftprintpro.com]";
+    invoiceData.notificationURL = "https://test.domain.com/confirm";
+    invoiceData.redirectURL = `https://test.domain.com/confirm/${order}`;
+    invoiceData.itemDesc = "Item Description.";
+    invoiceData.notificationEmail = "[dev@domain.com]";
 
     const invoice = await this.client.CreateInvoice(invoiceData);
 
@@ -37,4 +37,4 @@ class Bitpay {
   }
 }
 
-export default Bitpay;
+export default BitPay;

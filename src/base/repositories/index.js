@@ -1,6 +1,6 @@
+import ResourceNotFoundError from "errors/ResourceNotFoundError";
+import InvalidPayloadError from "interfaces/rest/errors/InvalidPayloadError";
 import mongoose from "mongoose";
-import ResourceNotFoundError from "interfaces/http/errors/ResourceNotFoundError";
-import InvalidPayloadError from "interfaces/http/errors/InvalidPayloadError";
 
 class BaseRepository {
   /**
@@ -42,9 +42,7 @@ class BaseRepository {
     const results = multiple
       ? this.Collection.find(query, projection, options)
       : options.session
-      ? this.Collection.findOne(query)
-          .session(options.session)
-          .select(projection)
+      ? this.Collection.findOne(query).session(options.session).select(projection)
       : this.Collection.findOne(query, projection, options);
 
     return results.exec();
@@ -63,13 +61,8 @@ class BaseRepository {
       throw new InvalidPayloadError(`Invalid ${this.modelName}Id`);
     }
     const document = options.session
-      ? await this.Collection.findById(documentId)
-          .session(options.session)
-          .select(projection)
-          .setOptions(options)
-      : await this.Collection.findById(documentId)
-          .select(projection)
-          .setOptions(options);
+      ? await this.Collection.findById(documentId).session(options.session).select(projection).setOptions(options)
+      : await this.Collection.findById(documentId).select(projection).setOptions(options);
 
     if (!document) {
       throw new ResourceNotFoundError(`${this.modelName} not found`);
@@ -90,11 +83,7 @@ class BaseRepository {
     if (query._id && !this.isValidId(query._id)) {
       throw new InvalidPayloadError(`Invalid ${this.modelName}Id`);
     }
-    const document = await this.Collection.findOneAndUpdate(
-      query,
-      update,
-      options,
-    );
+    const document = await this.Collection.findOneAndUpdate(query, update, options);
 
     if (!document) {
       throw new ResourceNotFoundError(`${this.modelName} not found`);

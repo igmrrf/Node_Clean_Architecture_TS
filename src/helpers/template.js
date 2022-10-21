@@ -68,15 +68,15 @@ ${header}
 </header>
    
 <main>
-    <p><strong>Thank you for joining our waitlist!</strong></p>
+    <p><strong>Thank you for joining our wait list!</strong></p>
     <br/>
-    <p>We are glad to have you with us as we embark this journey to be the foremost provider of NFT Prints worldwide.</p>
+    <p>We are glad to have you with us as we embark this journey to be the foremost provider of service worldwide.</p>
 
-    <p>We will keep you updated on our progress. As a result of signing up on our waitlist, you'll have an opportunity to be a early user when we launch and recieve a one-time 10% discount on your first print.</p>
+    <p>We will keep you updated on our progress. As a result of signing up on our wait list, you'll have an opportunity to be a early user when we launch and receive a one-time 10% discount on your first print.</p>
     <br />
   <p>Thank you,
   <br/>
-  NFT Print Pro Team
+  Node Clean Team
   </p>
 
   <div data-role="module-unsubscribe" class="module" role="module" data-type="unsubscribe" style="color:#444444; font-size:12px; line-height:20px; padding:16px 16px 16px 16px; text-align:Center;" data-muid="4e838cf3-9892-4a6d-94d6-170e474d21e5">
@@ -89,7 +89,7 @@ ${header}
 
 const list = (print) => `<li>
          <div>
-           <p>NFT Name: ${print.name} </p>
+           <p>Service: ${print.name} </p>
            <p>Image Attached: ${print.image}</p>
            <p>Size: ${print.size}</p>
            <p>Type: ${print.type}</p>
@@ -120,7 +120,7 @@ ${header}
     <br />
   <p>Thank you,
   <br/>
-  NFT Print Pro Team
+  Node Clean Team
   </p>
 
   <div data-role="module-unsubscribe" class="module" role="module" data-type="unsubscribe" style="color:#444444; font-size:12px; line-height:20px; padding:16px 16px 16px 16px; text-align:Center;" data-muid="4e838cf3-9892-4a6d-94d6-170e474d21e5">

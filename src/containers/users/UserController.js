@@ -1,4 +1,4 @@
-import BaseController from "interfaces/http/controllers";
+import BaseController from "interfaces/rest/controllers";
 import { pick } from "lodash";
 
 class UserController extends BaseController {
@@ -10,7 +10,7 @@ class UserController extends BaseController {
     this.delete = deleteUser;
     this.getOne = getUser;
     this.get = getUsers;
-    this.allowedPayloads = ["eth_address", "username", "email", "discord", "twitter", "type", "nft"];
+    this.allowedPayloads = ["username", "email", "discord", "twitter", "type"];
   }
 
   async createUser(req, res) {
@@ -20,17 +20,17 @@ class UserController extends BaseController {
   }
 
   async login(req, res) {
-    const payload = pick(req.body, ["eth_address"]);
+    const payload = pick(req.body, ["username", "password"]);
     const response = await this.auth.execute(payload);
     return this.responseBuilder.getResponseHandler(res).onSuccess(response, "Auth successful!");
   }
 
   async updateUser(req, res) {
     const { id: _id } = pick(req.params, ["id"]);
-    const body = pick(req.body, ["nft", "username", "discord", "twitter", "type", "verified"]);
+    const body = pick(req.body, ["username", "discord", "twitter", "type", "verified"]);
     const payload = { ...body, _id };
     const response = await this.update.execute(payload);
-    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "User udpated successfully");
+    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "User updated successfully");
   }
 
   async deleteUser(req, res) {

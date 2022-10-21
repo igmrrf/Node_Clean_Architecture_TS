@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import sgMail from "@sendgrid/mail";
 import config from "config";
-import { orderMail, WaitListMail } from "../helpers/template";
+import { orderMail, WaitListMail } from "helpers/template";
 
 sgMail.setApiKey(config.get("sendgrid.apiKey"));
 
@@ -9,8 +9,8 @@ export const waitListWelcome = async (recipient) => {
   if (process.env.NODE_ENV === "test") return "test";
   const msg = {
     to: recipient,
-    from: "NFT Print Pro<noreply@nftprintpro.com>",
-    subject: "Welcome, Successfully Joined Waitlist",
+    from: "Node Clean<noreply@domain.com>",
+    subject: "Welcome, Successfully Joined WaitList",
     html: WaitListMail(recipient),
   };
   let info;
@@ -24,15 +24,15 @@ export const waitListWelcome = async (recipient) => {
   return info;
 };
 
-export const orderSubmission = async (orderdetails) => {
+export const orderSubmission = async (orderDetails) => {
   if (process.env.NODE_ENV === "test") return "test";
 
   const msg = {
-    to: "Founder<founder@nftprintpro.com",
-    cc: ["Dev Team<dev@nftprintpro.com>", "Dev Team<support@nftprintpro.com>"],
-    from: "NFT Print Pro<noreply@nftprintpro.com>",
+    to: "Founder<founder@domain.com",
+    cc: ["Dev Team<dev@domain.com>", "Dev Team<support@domain.com>"],
+    from: "Node Clean<noreply@domain.com>",
     subject: "Order Details",
-    html: orderMail(orderdetails),
+    html: orderMail(orderDetails),
   };
   let info;
   try {

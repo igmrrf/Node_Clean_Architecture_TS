@@ -1,9 +1,9 @@
-import { Router } from "express";
 import { makeInvoker } from "awilix-express";
+import { waitListSchema } from "containers/waitList/WaitListValidation";
+import { Router } from "express";
 import validator from "express-joi-validation";
-import { waitlistSchema } from "containers/waitlist/WaitListValidation";
-import CheckAuth from "interfaces/http/middlewares/checkAuthentication";
-import MethodNotAllowedHandler from "interfaces/http/middlewares/methodNotAllowed";
+import CheckAuth from "interfaces/rest/middlewares/checkAuthentication";
+import MethodNotAllowedHandler from "interfaces/rest/middlewares/methodNotAllowed";
 import WaitListController from "./WaitListController";
 
 const router = Router();
@@ -21,7 +21,6 @@ const validate = validator.createValidator({
  * @apiVersion 1.0.0
  * @apiParam {String} email - Email of the user
  * @apiParam {String} discord - Discord username
- * @apiParam {String} eth_address - Ethereum address
  * @apiParam {String} twitter - Twitter username
  * @apiSuccessExample Success Response:
  {
@@ -32,7 +31,6 @@ const validate = validator.createValidator({
         "email": "francis.igbiriki@gmail.com",
         "discord": "igmrrf",
         "twitter": "igmrrf",
-        "eth_address": "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
         "_id": "6244f22a7be2d161b405f864",
         "created_at": "2022-03-31T00:13:30.062Z",
         "updated_at": "2022-03-31T00:13:30.062Z"
@@ -49,7 +47,6 @@ const validate = validator.createValidator({
  * @apiVersion 1.0.0
  * @apiParam {String} email - Email of the user
  * @apiParam {String} discord - Discord username
- * @apiParam {String} eth_address - Ethereum address
  * @apiParam {String} twitter- Twitter username
  * @apiSuccessExample Success Response:
  {
@@ -60,7 +57,6 @@ const validate = validator.createValidator({
         "email": "francis.igbiriki@gmail.com",
         "twitter": "igmrrf",
         "discord": "igmrrf",
-        "eth_address": "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
         "_id": "6244f22a7be2d161b405f864",
         "created_at": "2022-03-31T00:13:30.062Z",
         "updated_at": "2022-03-31T00:13:30.062Z"
@@ -85,7 +81,6 @@ const validate = validator.createValidator({
         "email": "francis.igbiriki@gmail.com",
         "twitter": "igmrrf",
         "discord": "igmrrf",
-        "eth_address": "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
         "_id": "6244f22a7be2d161b405f864",
         "created_at": "2022-03-31T00:13:30.062Z",
         "updated_at": "2022-03-31T00:13:30.062Z"
@@ -109,7 +104,6 @@ const validate = validator.createValidator({
         "email": "francis.igbiriki@gmail.com",
         "twitter": "igmrrf",
         "discord": "igmrrf",
-        "eth_address": "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
         "_id": "6244f22a7be2d161b405f864",
         "created_at": "2022-03-31T00:13:30.062Z",
         "updated_at": "2022-03-31T00:13:30.062Z"
@@ -135,7 +129,6 @@ const validate = validator.createValidator({
         "email": "francis.igbiriki@gmail.com",
         "twitter": "igmrrf",
         "discord": "igmrrf",
-        "eth_address": "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
         "_id": "6244f22a7be2d161b405f864",
         "created_at": "2022-03-31T00:13:30.062Z",
         "updated_at": "2022-03-31T00:13:30.062Z"
@@ -148,12 +141,12 @@ router
   .route("/:id")
   .delete(Auth("allowAny"), api("deleteWaitList"))
   .get(Auth("allowAny"), api("getWaitList"))
-  .put(Auth("allowAny"), validate.body(waitlistSchema), api("updateWaitList"))
+  .put(Auth("allowAny"), validate.body(waitListSchema), api("updateWaitList"))
   .all(MethodNotAllowedHandler);
 
 router
   .route("/")
-  .post(Auth("allowAny"), validate.body(waitlistSchema), api("createWaitList"))
+  .post(Auth("allowAny"), validate.body(waitListSchema), api("createWaitList"))
   .get(Auth("allowAny"), api("getWaitLists"))
   .all(MethodNotAllowedHandler);
 
