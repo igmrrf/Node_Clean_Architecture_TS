@@ -9,7 +9,7 @@ class WaitListController extends BaseController {
     this.delete = deleteWaitList;
     this.get = getWaitLists;
     this.getOne = getWaitList;
-    this.allowPayload = ["email", "discord", "twitter", "eth_address"];
+    this.allowPayload = ["email", "discord", "twitter", "username"];
   }
 
   async createWaitList(req, res) {

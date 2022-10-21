@@ -7,13 +7,11 @@
 class User {
   getPublicFields() {
     return {
-      eth_address: this.eth_address,
       username: this.username,
       email: this.email,
       discord: this.discord,
       twitter: this.twitter,
       type: this.type,
-      nft: this.nft,
       coupons: this.coupons,
       stripe_customer: this.stripe_customer,
       created_by: this.created_by,

@@ -2,7 +2,6 @@ import { faker } from "@faker-js/faker";
 
 const MOCK_DATA = {
   newUserPayload: {
-    eth_address: "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
     email: faker.internet.email(),
     username: "test122",
     discord: "test123",

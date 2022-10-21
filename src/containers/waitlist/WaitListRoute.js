@@ -21,7 +21,6 @@ const validate = validator.createValidator({
  * @apiVersion 1.0.0
  * @apiParam {String} email - Email of the user
  * @apiParam {String} discord - Discord username
- * @apiParam {String} eth_address - Ethereum address
  * @apiParam {String} twitter - Twitter username
  * @apiSuccessExample Success Response:
  {
@@ -32,7 +31,6 @@ const validate = validator.createValidator({
         "email": "francis.igbiriki@gmail.com",
         "discord": "igmrrf",
         "twitter": "igmrrf",
-        "eth_address": "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
         "_id": "6244f22a7be2d161b405f864",
         "created_at": "2022-03-31T00:13:30.062Z",
         "updated_at": "2022-03-31T00:13:30.062Z"
@@ -49,7 +47,6 @@ const validate = validator.createValidator({
  * @apiVersion 1.0.0
  * @apiParam {String} email - Email of the user
  * @apiParam {String} discord - Discord username
- * @apiParam {String} eth_address - Ethereum address
  * @apiParam {String} twitter- Twitter username
  * @apiSuccessExample Success Response:
  {
@@ -60,7 +57,6 @@ const validate = validator.createValidator({
         "email": "francis.igbiriki@gmail.com",
         "twitter": "igmrrf",
         "discord": "igmrrf",
-        "eth_address": "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
         "_id": "6244f22a7be2d161b405f864",
         "created_at": "2022-03-31T00:13:30.062Z",
         "updated_at": "2022-03-31T00:13:30.062Z"
@@ -85,7 +81,6 @@ const validate = validator.createValidator({
         "email": "francis.igbiriki@gmail.com",
         "twitter": "igmrrf",
         "discord": "igmrrf",
-        "eth_address": "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
         "_id": "6244f22a7be2d161b405f864",
         "created_at": "2022-03-31T00:13:30.062Z",
         "updated_at": "2022-03-31T00:13:30.062Z"
@@ -109,7 +104,6 @@ const validate = validator.createValidator({
         "email": "francis.igbiriki@gmail.com",
         "twitter": "igmrrf",
         "discord": "igmrrf",
-        "eth_address": "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
         "_id": "6244f22a7be2d161b405f864",
         "created_at": "2022-03-31T00:13:30.062Z",
         "updated_at": "2022-03-31T00:13:30.062Z"
@@ -135,7 +129,6 @@ const validate = validator.createValidator({
         "email": "francis.igbiriki@gmail.com",
         "twitter": "igmrrf",
         "discord": "igmrrf",
-        "eth_address": "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
         "_id": "6244f22a7be2d161b405f864",
         "created_at": "2022-03-31T00:13:30.062Z",
         "updated_at": "2022-03-31T00:13:30.062Z"

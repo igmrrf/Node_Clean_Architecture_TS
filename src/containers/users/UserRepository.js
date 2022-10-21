@@ -17,9 +17,9 @@ class UserRepository extends BaseRepository {
   }
 
   async create(payload) {
-    const { eth_address, email, discord, twitter } = payload;
+    const { email, discord, twitter } = payload;
 
-    // check for existing user by email and eth_address
+    // check for existing user by and email
 
     // confirm the email isn't used on another account
     const existingUserName = await this.find(
@@ -35,15 +35,14 @@ class UserRepository extends BaseRepository {
       payload.username += random(999);
     }
 
-    const existsOnWaitlist = this.WaitList.findOne({ email, eth_address });
+    const existsOnWaitList = this.WaitList.findOne({ email });
 
-    if (existsOnWaitlist) {
+    if (existsOnWaitList) {
       payload.coupons = [{ code: "WAITLIST10", percent: 10, campaign: "WAITLIST", used: false }];
     }
 
     if (process.env.NODE_ENV === "test") {
       const newUser = await this.createDoc({
-        eth_address,
         username: payload.username,
         email,
         discord,
@@ -61,7 +60,6 @@ class UserRepository extends BaseRepository {
 
     const newUser = await this.createDoc({
       stripe_customer,
-      eth_address,
       username: payload.username,
       email,
       discord,
@@ -91,10 +89,10 @@ class UserRepository extends BaseRepository {
   }
 
   async login(payload) {
-    const { eth_address } = payload;
-    const user = await this.find({ eth_address }, undefined, { lean: false }, false);
+    const { username } = payload;
+    const user = await this.find({ username }, undefined, { lean: false }, false);
     let data = {};
-    const waitListInfo = await this.WaitList.findOne({ eth_address });
+    const waitListInfo = await this.WaitList.findOne({ username });
 
     if (waitListInfo) {
       data = waitListInfo.getPublicFields();
@@ -106,7 +104,7 @@ class UserRepository extends BaseRepository {
 
     const token = jwt.generate({
       userId: user._id,
-      eth_address,
+      username,
       type: user.type,
     });
 

@@ -1,8 +1,8 @@
-import { Router } from "express";
 import { makeInvoker } from "awilix-express";
-import validateError from "module/validator.module";
+import { Router } from "express";
 import CheckAuth from "interfaces/rest/middlewares/checkAuthentication";
 import MethodNotAllowedHandler from "interfaces/rest/middlewares/methodNotAllowed";
+import validateError from "module/validator.module";
 import UserController from "./UserController";
 import UserValidation from "./UserValidation";
 
@@ -23,7 +23,6 @@ const { create, getOne, getAll, update, remove, login } = UserValidation;
     "status_code": 200,
     "message": "User added successfully",
     "data": {
-        "eth_address": "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
         "username": "test122",
         "email": "francis.igbiriki@gmail.com",
         "discord": "test123",
@@ -49,7 +48,6 @@ const { create, getOne, getAll, update, remove, login } = UserValidation;
     "status_code": 200,
     "message": "User updated successfully",
     "data": {
-        "eth_address": "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
         "username": "test122",
         "email": "francis.igbiriki@gmail.com",
         "discord": "test123",
@@ -76,7 +74,6 @@ const { create, getOne, getAll, update, remove, login } = UserValidation;
     "status_code": 200,
     "message": "User deleted successfully",
     "data": {
-        "eth_address": "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
         "username": "test122",
         "email": "francis.igbiriki@gmail.com",
         "discord": "test123",
@@ -102,7 +99,6 @@ const { create, getOne, getAll, update, remove, login } = UserValidation;
     "status_code": 200,
     "message": "Users fetched successfully",
     "data": [{
-        "eth_address": "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
         "username": "test122",
         "email": "francis.igbiriki@gmail.com",
         "discord": "test123",
@@ -129,7 +125,6 @@ const { create, getOne, getAll, update, remove, login } = UserValidation;
     "status_code": 200,
     "message": "User fetched successfully",
     "data": {
-        "eth_address": "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
         "username": "test122",
         "email": "francis.igbiriki@gmail.com",
         "discord": "test123",

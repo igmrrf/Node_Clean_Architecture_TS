@@ -21,11 +21,6 @@ const waitListSchema = new mongoose.Schema(
       lowercase: true,
       unique: true,
     },
-    eth_address: {
-      type: String,
-      required: true,
-      // unique: true,
-    },
 
     type: {
       type: String,
