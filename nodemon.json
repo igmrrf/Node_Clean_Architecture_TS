@@ -1,9 +1,10 @@
 {
   "watch": ["src"],
-  "ext": "js",
+  "ext": ".ts,.js,.tsx,.jsx",
   "ignore": [".git", "node_modules/"],
   "delay": "3",
   "execMap": {
-    "js": "babel-node"
+    "js": "babel-node",
+    "ts": "ts-node"
   }
 }
