@@ -44,7 +44,7 @@
       "rest/*": ["interfaces/rest/*"],
       "containers/*": ["containers/*"],
       "interfaces/*": ["interfaces/*"],
-      "errors/*": ["interfaces/rest/errors/*"],
+      "error/*": ["interfaces/rest/errors/*"],
       "routes/*": ["interfaces/rest/routes/*"],
       "controllers/*": ["interfaces/rest/controllers/*"],
       "validations/*": ["interfaces/rest/validations/*"],

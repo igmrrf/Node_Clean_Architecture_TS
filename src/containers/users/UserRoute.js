@@ -1,7 +1,7 @@
 import { makeInvoker } from "awilix-express";
 import { Router } from "express";
-import MethodNotAllowedHandler from "middlewares/methodNotAllowed";
-import CheckAuth from "middlewares/checkAuthentication";
+import CheckAuth from "interfaces/rest/middlewares/checkAuthentication";
+import MethodNotAllowedHandler from "interfaces/rest/middlewares/methodNotAllowed";
 import validateError from "modules/validator.module";
 import UserController from "./UserController";
 import UserValidation from "./UserValidation";
