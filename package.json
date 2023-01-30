@@ -72,7 +72,7 @@
     "pm2": "^5.2.2",
     "redis": "^4.5.1",
     "request-ip": "^3.0.0",
-    "stripe": "^10.0.0",
+    "stripe": "^11.0.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {
