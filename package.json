@@ -62,7 +62,7 @@
     "http-status-codes": "^2.1.4",
     "joi": "^17.4.1",
     "joi-objectid": "^4.0.2",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",
     "mongodb-memory-server": "^8.4.2",
     "mongoose": "^6.8.3",
