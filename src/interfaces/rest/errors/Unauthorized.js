@@ -5,7 +5,7 @@ class UnauthorizedError extends BaseError {
   constructor(
     message = "Authorization is required to access this API endpoint.",
     status = HttpStatus.UNAUTHORIZED,
-    data,
+    data = {},
   ) {
     super(message, status, data);
     this.name = "UnauthorizedError";

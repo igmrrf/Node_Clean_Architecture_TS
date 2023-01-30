@@ -5,7 +5,7 @@ class ForbiddenError extends BaseError {
   constructor(
     message = "You do not have permission to access this API endpoint.",
     status = HttpStatus.FORBIDDEN,
-    data,
+    data = {},
   ) {
     super(message, status, data);
     this.name = "ForbiddenError";

@@ -1,13 +1,13 @@
 // tests/db-handler.js
-import mongoose from "mongoose";
 import { MongoMemoryReplSet } from "mongodb-memory-server";
+import mongoose from "mongoose";
 
 /**
  * Connect to the in-memory database.
  */
 
 // eslint-disable-next-line consistent-return
-module.exports.connect = async () => {
+const connect = async () => {
   const replSet = await MongoMemoryReplSet.create({
     replSet: {
       count: 3,
@@ -29,7 +29,7 @@ module.exports.connect = async () => {
 /**
  * Drop database, close the connection and stop mongod.
  */
-module.exports.closeDatabase = async () => {
+const closeDatabase = async () => {
   await mongoose.connection.dropDatabase();
   await mongoose.connection.close();
   // await replSet.stop();
@@ -38,7 +38,7 @@ module.exports.closeDatabase = async () => {
 /**
  * Remove all the data for all db collections.
  */
-module.exports.clearDatabase = async () => {
+const clearDatabase = async () => {
   const { collections } = mongoose.connection;
   const keys = Object.keys(collections);
   for (let i = 0; i < keys.length; i += 1) {
@@ -47,3 +47,5 @@ module.exports.clearDatabase = async () => {
     await collection.deleteMany();
   }
 };
+
+export default { clearDatabase, closeDatabase, connect };

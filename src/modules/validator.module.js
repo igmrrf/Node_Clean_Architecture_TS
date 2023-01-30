@@ -1,5 +1,5 @@
-import { validationResult } from "express-validator";
 import InvalidPayloadError from "errors/InvalidPayloadError";
+import { validationResult } from "express-validator";
 
 const validateError = (req, res, next) => {
   const errors = validationResult(req);
@@ -13,4 +13,4 @@ const validateError = (req, res, next) => {
   });
 };
 
-module.exports = validateError;
+export default validateError;

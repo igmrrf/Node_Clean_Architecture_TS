@@ -4,12 +4,10 @@
  and getters/setters map to virtuals.
 */
 
-class Contact {
+class Todo {
   getPublicFields() {
     return {
-      email: this.email,
-      discord: this.discord,
-      twitter: this.twitter,
+      created_by: this.created_by,
       _id: this._id,
       created_at: this.created_at,
       updated_at: this.updated_at,
@@ -17,4 +15,4 @@ class Contact {
   }
 }
 
-export default Contact;
+module.exports = Todo;

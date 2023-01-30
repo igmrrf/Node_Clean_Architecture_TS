@@ -1,0 +1,86 @@
+version: "3.3"
+services:
+  # The Application
+  api:
+    image: igmrrf/node_clean_api:latest
+    ports:
+      - 6222:8080
+    environment:
+      - MONGOLAB_URL=mongodb://mongo/giro
+      - LOG_MONGOLAB_URL=mongodb://mongo/giroLogs
+      - REDIS_URL=redis://redis:6379/12
+      - PORT=8080
+      - LOGGLY_TOKEN=5b19c66d-8581-4b6f-a8dc-1b02d1f49385
+      - LOGGLY_SUBDOMAIN=ensemblelab
+      - LOGGLY_TAG=veend
+      - NO_CACHE=no
+      - BUGSNAG_KEY=1e250fdeb846cb0db714ceb9459884a6
+      - RATE_LIMIT_EXPIRY=60000
+      - RATE_LIMIT=5600
+      - WORKER_CONCURRENCY=1
+      - NODE_ENV=production
+      - LOANDISK_MIDDLEWARE_BASEURL=https://test2.veendhq.com
+      - FRONTEND_CACHE_EXPIRY=30
+      - BACKEND_CACHE_EXPIRY=30
+    links:
+      - redis
+      - mongo
+    restart: always
+    deploy:
+      replicas: 1
+
+  # The clock
+  clock:
+    image: igmrrf/node_clean_clock:latest
+    environment:
+      - MONGOLAB_URL=mongodb://mongo/giro
+      - LOG_MONGOLAB_URL=mongodb://mongo/giroLogs
+      - REDIS_URL=redis://redis:6379/12
+      - NODE_ENV=production
+      - PORT=8080
+      - LOGGLY_TOKEN=5b19c66d-8581-4b6f-a8dc-1b02d1f49385
+      - LOGGLY_SUBDOMAIN=ensemblelab
+      - LOGGLY_TAG=veend
+      - NO_CACHE=no
+      - BUGSNAG_KEY=1e250fdeb846cb0db714ceb9459884a6
+      - RATE_LIMIT_EXPIRY=60000
+      - RATE_LIMIT=5600
+      - WORKER_CONCURRENCY=1
+    links:
+      - redis
+      - mongo
+    restart: always
+  # The Worker
+  worker:
+    image: igmrrf/node_clean_worker:latest
+    environment:
+      - MONGOLAB_URL=mongodb://mongo/giro
+      - LOG_MONGOLAB_URL=mongodb://mongo/giroLogs
+      - REDIS_URL=redis://redis:6379/12
+      - NODE_ENV=production
+      - PORT=8080
+      - LOGGLY_TOKEN=5b19c66d-8581-4b6f-a8dc-1b02d1f49385
+      - LOGGLY_SUBDOMAIN=ensemblelab
+      - LOGGLY_TAG=veend
+      - NO_CACHE=no
+      - BUGSNAG_KEY=1e250fdeb846cb0db714ceb9459884a6
+      - RATE_LIMIT_EXPIRY=60000
+      - RATE_LIMIT=5600
+      - WORKER_CONCURRENCY=1
+    links:
+      - redis
+      - mongo
+    restart: always
+  # Redis
+  redis:
+    image: redis
+    restart: always
+
+  # Mongo
+  mongo:
+    image: mongo:3.6
+    restart: always
+    volumes: /home/ubuntu/mongo:/data/db
+  # networks:
+  #     redis:
+  #         external: true

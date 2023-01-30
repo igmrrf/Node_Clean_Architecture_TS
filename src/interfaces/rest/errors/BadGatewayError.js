@@ -5,7 +5,7 @@ class BadGatewayError extends BaseError {
   constructor(
     message = "Could not complete your request. Please try again later.",
     status = HttpStatus.BAD_GATEWAY,
-    data,
+    data = {},
   ) {
     super(message, status, data);
     this.name = "BadGatewayError";

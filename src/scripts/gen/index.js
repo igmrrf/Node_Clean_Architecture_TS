@@ -1,98 +1,47 @@
 const fs = require("fs");
-const readline = require("readline");
 const path = require("path");
-const { writeFile } = require("fs/promises");
 
 const folder = process.argv[2] || "";
-const Cfolder = process.argv[3] || "";
-const routeContent = require("./data/route")(Cfolder);
-const repositoryContent = require("./data/repository")(Cfolder);
-const validationContent = require("./data/validation")(Cfolder);
-const entityContent = require("./data/entity")(Cfolder);
-const modelContent = require("./data/model")(Cfolder);
-const controllerContent = require("./data/controller")(Cfolder);
-const specContent = require("./data/spec")(Cfolder);
-const repositorySpecContent = require("./data/repository.spec")(Cfolder);
-const mockContent = require("./data/mockdata")(Cfolder);
-const createContent = require("./data/create")(Cfolder);
-const updateContent = require("./data/update")(Cfolder);
-const deleteContent = require("./data/delete")(Cfolder);
-const getOneContent = require("./data/getone")(Cfolder);
-const getContent = require("./data/getall")(Cfolder);
+const CFolder = process.argv[3] || "";
+const routeContent = require("./data/route")(CFolder);
+const repositoryContent = require("./data/repository")(CFolder);
+const validationContent = require("./data/validation")(CFolder);
+const entityContent = require("./data/entity")(CFolder);
+const modelContent = require("./data/model")(CFolder);
+const controllerContent = require("./data/controller")(CFolder);
+const specContent = require("./data/spec")(CFolder);
+const repositorySpecContent = require("./data/repository.spec")(CFolder);
+const mockContent = require("./data/mockdata")(CFolder);
+const createContent = require("./data/create")(CFolder);
+const updateContent = require("./data/update")(CFolder);
+const deleteContent = require("./data/delete")(CFolder);
+const getOneContent = require("./data/getone")(CFolder);
+const getContent = require("./data/getall")(CFolder);
 
 function writeIntoFile(dir) {
   if (!dir) dir = path.join(process.cwd(), `src/containers/${folder}`);
-
   fs.readdirSync(dir)
     .filter((file) => file !== "index.js")
     .forEach((file) => {
-      if (fs.lstatSync(`${dir}/${file}`).isDirectory())
-        return writeIntoFile(`${dir}/${file}`);
+      let content = null;
+      if (fs.lstatSync(`${dir}/${file}`).isDirectory()) return writeIntoFile(`${dir}/${file}`);
       file = path.join(dir, file);
+      if (file.includes(`MOCK_DATA.js`)) content = mockContent;
+      else if (file.includes(`${CFolder}.spec.js`)) content = specContent;
+      else if (file.includes(`${CFolder}Repository.spec.js`)) content = repositorySpecContent;
+      else if (file.includes("Controller.js")) content = controllerContent;
+      else if (file.includes("Entity.js")) content = entityContent;
+      else if (file.includes("Model.js")) content = modelContent;
+      else if (file.includes("Repository.js")) content = repositoryContent;
+      else if (file.includes("Route.js")) content = routeContent;
+      else if (file.includes("Validation.js")) content = validationContent;
 
-      if (file.includes(`MOCK_DATA.js`))
-        fs.writeFile(file, mockContent, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
-      if (file.includes(`${Cfolder}.spec.js`))
-        fs.writeFile(file, specContent, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
-      if (file.includes(`${Cfolder}Repository.spec.js`))
-        fs.writeFile(file, repositorySpecContent, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
-      if (file.includes("Controller.js"))
-        fs.writeFile(file, controllerContent, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
-      if (file.includes("Entity.js"))
-        fs.writeFile(file, entityContent, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
-      if (file.includes("Model.js"))
-        fs.writeFile(file, modelContent, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
-      if (file.includes("Repository.js"))
-        fs.writeFile(file, repositoryContent, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
-      if (file.includes("Route.js"))
-        fs.writeFile(file, routeContent, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
-      if (file.includes("Validation.js"))
-        fs.writeFile(file, validationContent, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
+      fs.writeFile(file, content, (err) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+      });
     });
 
   dir = path.join(process.cwd(), `src/app/${folder}`);
@@ -100,43 +49,19 @@ function writeIntoFile(dir) {
   fs.readdirSync(dir)
     .filter((file) => file !== "index.js")
     .forEach((file) => {
+      let content = null;
       file = path.join(dir, file);
-
-      if (file.includes(`Create${Cfolder}.js`))
-        fs.writeFile(file, createContent, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
-      if (file.includes(`Update${Cfolder}.js`))
-        fs.writeFile(file, updateContent, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
-      if (file.includes(`Delete${Cfolder}.js`))
-        fs.writeFile(file, deleteContent, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
-      if (file.includes(`Get${Cfolder}.js`))
-        fs.writeFile(file, getOneContent, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
-      if (file.includes(`Get${Cfolder}s.js`))
-        fs.writeFile(file, getContent, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
+      if (file.includes(`Create${CFolder}.js`)) content = createContent;
+      else if (file.includes(`Update${CFolder}.js`)) content = updateContent;
+      else if (file.includes(`Delete${CFolder}.js`)) content = deleteContent;
+      else if (file.includes(`Get${CFolder}.js`)) content = getOneContent;
+      else if (file.includes(`Get${CFolder}s.js`)) content = getContent;
+      fs.writeFile(file, content, (err) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+      });
     });
 }
 

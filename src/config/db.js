@@ -41,6 +41,13 @@ const config = {
     env: "MONGO_PASSWORD",
     sensitive: true,
   },
+  redisUrl: {
+    doc: "The redis url",
+    format: "*",
+    default: "",
+    env: "REDIS_URL",
+    sensitive: true,
+  },
 };
 
 exports.db = config;

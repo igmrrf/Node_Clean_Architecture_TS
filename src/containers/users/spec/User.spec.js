@@ -1,4 +1,4 @@
-import faker from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 import { expect } from "chai";
 import User from "../UserEntity";
 
@@ -6,7 +6,7 @@ describe("********** User entity ***********", () => {
   it("getPublicFields", () => {
     const user = new User({
       username: "igmrrf",
-      email: faker.internet.email,
+      email: faker.internet.email(),
       discord: "igmrrf",
       twitter: "igmrrf",
     });

@@ -16,7 +16,7 @@ To learn more about clean architecture, please read this article https://blog.cl
 - API Documentation using https://apidocjs.com/
 - MongoDB setup
 - Testing setup
-- Continous Integration Github action
+- Continuos Integration Github action
 - Configured Express server
 - Compliance with [12 factor app](https://12factor.net/)
 - Process manager
@@ -83,9 +83,9 @@ const client = new AWS.S3({
 
   - **repositories**: Repositories implement logic for retrieving and aggregating data from databses. All repositories inherit common methodds from the `BaseRepository` class. So you don't have to keep writing similar queries multiple times.
 
-  **interfaces**: Interfaces are delivery mechanisms for your app i.e how users access your app. For example, through a REST API, gRPC server, GraphQL. In this example, we are delivering our application using Express web framework for Nodejs.
+- **interfaces**: Interfaces are delivery mechanisms for your app i.e how users access your app. For example, through a REST API, gRPC server, GraphQL. In this example, we are delivering our application using Express web framework for Nodejs.
 
-  **scripts**: One time scripts go here. Read https://12factor.net/admin-processes to learn more
+- **scripts**: One time scripts go here. Read https://12factor.net/admin-processes to learn more
 
 ## Dependency Injection
 
@@ -129,4 +129,7 @@ I was trying to make this as lean as possible, but if you think there's somethin
 
 ## Author
 
-[The LDO](https://github.com/igmrrf/Node_Clean_Architecture)
+[igmrrf](https://github.com/igmrrf/Node_Clean_Architecture)
+A litmus test for whether an app has all config correctly factored out of the code is whether the codebase could be made open source at any moment, without compromising any credentials.
+
+https://github.com/fluent/fluentd

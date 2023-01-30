@@ -20,6 +20,10 @@ class User {
       updated_at: this.updated_at,
     };
   }
+
+  getFullName() {
+    return `${this.first_name} ${this.last_name}`;
+  }
 }
 
 export default User;

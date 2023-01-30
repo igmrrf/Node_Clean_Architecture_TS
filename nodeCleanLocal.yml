@@ -1,0 +1,104 @@
+version: "3.7"
+services:
+  mongodb:
+    image: mongo:5.0
+    restart: always
+    volumes:
+      - /Users/igmrrf/mongodb:/data/db
+    networks:
+      - clean-slate
+  # The Application
+  api:
+    image: igmrrf/node-clean-api:integration
+    networks:
+      - clean-slate
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - 6296:3000
+      - 6286:8080
+    environment:
+      - MONGOLAB_URL=mongodb://mongodb:27017/userSB
+      - LOG_MONGOLAB_URL=mongodb://mongodb:27017/userSBLogs
+      - REDIS_URL=redis://redis:6379/12
+      - NODE_ENV=development
+      - PORT=8080
+      - NO_CACHE=no
+      - WORKER_CONCURRENCY=1
+      - USER_URL=https://cba.igmrrf.com:8443/fineract-provider
+      - RETRY_COUNT=200
+      - FRONTEND_CACHE_EXPIRY=30
+      - BACKEND_CACHE_EXPIRY=30
+
+    command: ["npm", "run", "start:dev"]
+
+    restart: always
+    deploy:
+      replicas: 1
+  # The clock
+  clock:
+    image: igmrrf/igmrrf-userclock:dev
+    # networks:
+    #     - redis
+    environment:
+      - MONGOLAB_URL=mongodb://mongodb:27017/userSB
+      - LOG_MONGOLAB_URL=mongodb://mongodb:27017/userSBLogs
+      - REDIS_URL=redis://redis:6379/12
+      - NODE_ENV=development
+      - PORT=8080
+      - NO_CACHE=no
+      - WORKER_CONCURRENCY=1
+      - USER_URL=https://cba.igmrrf.com:8443/fineract-provider
+    volumes:
+      - .:/usr/src/app
+    restart: always
+  # The Worker
+  worker:
+    image: igmrrf/igmrrf-userworker:dev
+    # networks:
+    #     - redis
+    environment:
+      - MONGOLAB_URL=mongodb://mongodb:27017/userSB
+      - LOG_MONGOLAB_URL=mongodb://mongodb:27017/userSBLogs
+      - REDIS_URL=redis://redis:6379/12
+      - NODE_ENV=development
+      - PORT=8080
+      - NO_CACHE=no
+      - WORKER_CONCURRENCY=1
+      - USER_URL=https://cba.igmrrf.com:8443/fineract-provider
+    volumes:
+      - .:/usr/src/app
+    restart: always
+  redis:
+    image: redis:5.0
+    # networks:
+    #     - redis
+    restart: always
+  usercreator:
+    image: igmrrf/igmrrf-user-creator:latest
+    restart: always
+    deploy:
+      replicas: 1
+    environment:
+      - SQL_HOST=igmrrf-database-1.cpfnbx6xobk2.eu-west-1.rds.amazonaws.com
+      - SQL_USER=user
+      - SQL_PASSWORD=user123
+      - ENV=development
+    # networks:
+    #     - redis
+
+  # MongoDB Admin
+  mongoadmin:
+    image: mongo-express
+    # networks:
+    #     - redis
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+    restart: always
+    ports:
+      - "8880:8081"
+networks:
+  redis:
+    external: true
+volumes:
+  mongo:

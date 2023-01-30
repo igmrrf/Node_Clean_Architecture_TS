@@ -15,8 +15,8 @@ const MOCK_DATA = {
     account_verified: true,
     coupons: [
       {
-        code: "WAITLIST",
-        campaign: "wailist",
+        code: "OPEN-SOURCE",
+        campaign: "OPEN SOURCE 100%",
         percent: 10,
         used: false,
       },

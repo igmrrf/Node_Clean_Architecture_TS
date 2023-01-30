@@ -19,20 +19,14 @@ class MongoDBManager {
 
     this.connectionString = connectionString;
     this.connection = mongoose.connection;
-
+    mongoose.set("strictQuery", true);
     if (this.config.get("app.env") === "development") {
       mongoose.set("debug", true);
     }
 
-    this.connection.on("open", () =>
-      this.logger.info("Successfully connected to MongoDB"),
-    );
-    this.connection.on("disconnected", () =>
-      this.logger.info("Disconnected from MongoDB"),
-    );
-    this.connection.on("error", (error) =>
-      this.logger.error("Error while connecting to MongoDB", error),
-    );
+    this.connection.on("open", () => this.logger.info("Successfully connected to MongoDB"));
+    this.connection.on("disconnected", () => this.logger.info("Disconnected from MongoDB"));
+    this.connection.on("error", (error) => this.logger.error("Error while connecting to MongoDB", error));
   }
 
   /**
@@ -42,9 +36,7 @@ class MongoDBManager {
    * @param {number} numOfRetries - Number of connection attempts
    */
   async connect(poolSize = 10, autoIndex = true, numOfRetries = 3) {
-    this.logger.info(
-      `Attempting to connect to MongoDB. Retries left: ${numOfRetries}`,
-    );
+    this.logger.info(`Attempting to connect to MongoDB. Retries left: ${numOfRetries}`);
     try {
       await mongoose.connect(this.connectionString, {
         maxPoolSize: poolSize,
@@ -53,9 +45,7 @@ class MongoDBManager {
     } catch (error) {
       this.logger.error("Failed to connected to MongoDB", error);
       if (numOfRetries <= 0) {
-        this.logger.error(
-          "Exhausted max number of retries for connecting to MongoDB",
-        );
+        this.logger.error("Exhausted max number of retries for connecting to MongoDB");
         process.exit(1);
       }
       setTimeout(() => {

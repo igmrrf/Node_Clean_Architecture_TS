@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "npp",
+      name: "node_clean",
       script: "dist/index.js",
       instances: 2,
       autorestart: true,
@@ -17,6 +17,7 @@ module.exports = {
 
   deploy: {
     production: {
+      key: "/path/to/some.pem", // path to the public key to authenticate
       user: "SSH_USERNAME",
       host: "SSH_HOSTMACHINE",
       ref: "origin/master",

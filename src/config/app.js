@@ -79,6 +79,13 @@ const config = {
     env: "FRONTEND_BASE_URL",
     sensitive: false,
   },
+  cacheExpiry: {
+    doc: "Cache expiry",
+    format: "*",
+    default: 3600,
+    env: "CACHE_EXPIRY",
+    sensitive: false,
+  },
 };
 
 exports.app = config;

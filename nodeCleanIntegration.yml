@@ -1,0 +1,123 @@
+version: "3.7"
+services:
+  mongodb:
+    image: mongo:3.6
+    restart: always
+    volumes:
+      - /home/ubuntu/mongo:/data/db
+    # networks:
+    #     - redis
+  # The Application
+  api:
+    image: ioluefemi/veend-tenantapi:dev
+    # networks:
+    #     - redis
+    ports:
+      - 6297:3000
+      - 6286:8080
+    environment:
+      - MONGOLAB_URL=mongodb://mongodb:27017/tenantSB
+      - LOG_MONGOLAB_URL=mongodb://mongodb:27017/tenantSBLogs
+      - REDIS_URL=redis://redis:6379/12
+      - NODE_ENV=development
+      - PORT=8080
+      - NO_CACHE=no
+      - WORKER_CONCURRENCY=1
+      - TENANT_URL=https://cba.veendhq.com:8443/fineract-provider
+      - RETRY_COUNT=200
+      - FRONTEND_CACHE_EXPIRY=30
+      - BACKEND_CACHE_EXPIRY=30
+    restart: always
+    deploy:
+      replicas: 1
+  # The clock
+  clock:
+    image: ioluefemi/vend-tenantclock:dev
+    # networks:
+    #     - redis
+    environment:
+      - MONGOLAB_URL=mongodb://mongodb:27017/tenantSB
+      - LOG_MONGOLAB_URL=mongodb://mongodb:27017/tenantSBLogs
+      - REDIS_URL=redis://redis:6379/12
+      - NODE_ENV=development
+      - PORT=8080
+      - NO_CACHE=no
+      - WORKER_CONCURRENCY=1
+      - TENANT_URL=https://cba.veendhq.com:8443/fineract-provider
+    restart: always
+  # The Worker
+  worker:
+    image: ioluefemi/vend-tenantworker:dev
+    # networks:
+    #     - redis
+    environment:
+      - MONGOLAB_URL=mongodb://mongodb:27017/tenantSB
+      - LOG_MONGOLAB_URL=mongodb://mongodb:27017/tenantSBLogs
+      - REDIS_URL=redis://redis:6379/12
+      - NODE_ENV=development
+      - PORT=8080
+      - NO_CACHE=no
+      - WORKER_CONCURRENCY=1
+      - TENANT_URL=https://cba.veendhq.com:8443/fineract-provider
+    restart: always
+  vend_loan:
+    image: ioluefemi/veend-loan-staging
+    ports:
+      - 6429:80
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_BASE_URL=https://api2.veendhq.com
+    restart: always
+    deploy:
+      replicas: 1
+  veend_dashboard:
+    image: ioluefemi/veendhq-dashboard-staging
+    ports:
+      - 6427:80
+    environment:
+      - REACT_APP_BASE_URL=https://api2.veendhq.com
+      - NODE_ENV=development
+    restart: always
+    deploy:
+      replicas: 1
+  veend_website:
+    image: ioluefemi/veendhq_website:latest
+    ports:
+      - 7077:80
+    restart: always
+    deploy:
+      replicas: 1
+  redis:
+    image: redis:5.0
+    # networks:
+    #     - redis
+    restart: always
+  tenantcreator:
+    image: ioluefemi/veendhq-tenant-creator:latest
+    restart: always
+    deploy:
+      replicas: 1
+    environment:
+      - SQL_HOST=veendhq-database-1.cpfnbx6xobk2.eu-west-1.rds.amazonaws.com
+      - SQL_USER=tenant
+      - SQL_PASSWORD=tenant123
+      - ENV=development
+    # networks:
+    #     - redis
+
+  # MongoDB Admin
+  mongoadmin:
+    image: mongo-express
+    # networks:
+    #     - redis
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+    restart: always
+    ports:
+      - "8880:8081"
+# networks:
+#     redis:
+#         external: true
+# volumes:
+#     mongo:
+#     /home/ubuntu/mongo:/data/db

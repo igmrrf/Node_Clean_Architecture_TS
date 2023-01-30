@@ -1,7 +1,5 @@
 import express from "express";
-import { graphqlHTTP } from "express-graphql";
 import http from "http";
-import schema from "interfaces/graphql";
 import path from "path";
 
 /**
@@ -13,7 +11,6 @@ class RestServer {
     app.disable("x-powered-by");
     // URL for API documentation
     app.use("/rest-docs", express.static(path.resolve(__dirname, "../../../docs/apidocs/")));
-    app.use("/graphql", graphqlHTTP({ schema, graphiql: true }));
 
     app.use(routes);
     app.use("/v1/payments/", express.static(path.join(__dirname, "public/")));

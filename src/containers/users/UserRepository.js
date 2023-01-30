@@ -2,17 +2,16 @@
 import PaymentService from "base/payments/Stripe";
 import BaseRepository from "base/repositories";
 import config from "config";
-import jwt from "helpers/jwt";
 import ResourceNotFoundError from "errors/ResourceNotFoundError";
-import UnauthorizedError from "errors/Unauthorized";
+import jwt from "helpers/jwt";
+import Password from "helpers/password";
+import ConflictError from "interfaces/rest/errors/ConflictError";
 import { random } from "lodash";
 
 class UserRepository extends BaseRepository {
-  constructor({ models: { User, WaitList, Refer }, currentUser }) {
+  constructor({ models: { User }, currentUser }) {
     super({ Model: User });
     this.User = User;
-    this.Refer = Refer;
-    this.WaitList = WaitList;
     this.currentUser = currentUser;
   }
 
@@ -33,12 +32,6 @@ class UserRepository extends BaseRepository {
 
     if (existingUserName) {
       payload.username += random(999);
-    }
-
-    const existsOnWaitList = this.WaitList.findOne({ email });
-
-    if (existsOnWaitList) {
-      payload.coupons = [{ code: "WAITLIST10", percent: 10, campaign: "WAITLIST", used: false }];
     }
 
     if (process.env.NODE_ENV === "test") {
@@ -89,22 +82,19 @@ class UserRepository extends BaseRepository {
   }
 
   async login(payload) {
-    const { username } = payload;
-    const user = await this.find({ username }, undefined, { lean: false }, false);
-    let data = {};
-    const waitListInfo = await this.WaitList.findOne({ username });
-
-    if (waitListInfo) {
-      data = waitListInfo.getPublicFields();
-    }
+    const user = await this.find({ username: payload.username }, undefined, { lean: false }, false);
 
     if (!user) {
-      throw new UnauthorizedError("Not existing User, Create.", 401, data);
+      throw new ResourceNotFoundError("No user with username found");
+    }
+    const valid = Password.compare(payload.password, user.password);
+
+    if (!valid) {
+      return new ConflictError("Invalid Password and user detail combination");
     }
 
     const token = jwt.generate({
       userId: user._id,
-      username,
       type: user.type,
     });
 
