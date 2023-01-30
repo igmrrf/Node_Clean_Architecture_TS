@@ -59,7 +59,7 @@
     "eslint": "8.25.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-prettier": "8.5.0",
-    "eslint-import-resolver-babel-module": "5.3.1",
+    "eslint-import-resolver-babel-module": "5.3.2",
     "eslint-plugin-import": "2.26.0",
     "faker": "6.6.6",
     "husky": "8.0.1",
