@@ -3,7 +3,7 @@
  */
 import { asValue, Lifetime } from "awilix";
 import Token from "helpers/jwt";
-import UnauthorizedError from "errors/Unauthorized";
+import UnauthorizedError from "interfaces/rest/errors/Unauthorized";
 
 /**
  * Authenticates requests made to the server

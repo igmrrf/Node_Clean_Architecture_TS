@@ -80,7 +80,7 @@ services:
   mongo:
     image: mongo:3.6
     restart: always
-    volumes: /home/ubuntu/mongo:/data/db
+    volumes: [/home/ubuntu/mongo:/data/db]
   # networks:
   #     redis:
   #         external: true
