@@ -1,9 +1,9 @@
 FROM node:lts
 
-FROM base as builder
+FROM base:latest as builder
 
 # deps for post-install scripts
-RUN apk add --update --no-cache python make git g++ && apt-get install -y gnupg:2.3.0 --no-install-recommends && apt-get -yq update && apt-get -yqq install ssh --no-install-recommends \
+RUN apk add --update --no-cache python make git g++ && apt-get install -y gnupg:latest --no-install-recommends && apt-get -yq update && apt-get -yqq install ssh:latest --no-install-recommends \
     mkdir /root/.ssh && chmod 0700 /root/.ssh && ssh-keyscan -t rsa bitbucket.org >> /root/.ssh/known_hosts && ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
 
 WORKDIR /usr/src/app
@@ -12,7 +12,7 @@ COPY package.json ./
 
 RUN npm install
 
-FROM base
+FROM base:latest
 
 WORKDIR /usr/src/app
 
