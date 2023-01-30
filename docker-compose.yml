@@ -78,7 +78,7 @@ services:
 
   # Mongo
   mongo:
-    image: mongo:3.6
+    image: mongo:3.7
     restart: always
     volumes: /home/ubuntu/mongo:/data/db
   # networks:
