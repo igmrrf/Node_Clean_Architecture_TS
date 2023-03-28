@@ -1,10 +1,13 @@
+import MongoDBManager from "base/database/MongoDBManager";
+import TodoSeed from "base/database/seeders/todos.json";
 import logger from "base/logger";
 import config from "config";
-import MongoDBManager from "base/database/MongoDBManager";
+import TodoModel from "containers/todos/TodoModel";
 
 const db = new MongoDBManager({ config, logger });
 
 async function createSampleTodos() {
+  await TodoModel.create(TodoSeed);
   logger.info("Finished creating sample todos");
 }
 
