@@ -1,0 +1,21 @@
+"use strict";
+
+/**
+ https://mongoosejs.com/docs/4.x/docs/advanced_schemas.html
+ *A class method maps to a schema method, a static method maps to a schema static,
+ and getters/setters map to virtuals.
+*/
+var Todo = /** @class */ (function () {
+  function Todo() {}
+  Todo.prototype.getPublicFields = function () {
+    return {
+      created_by: this.created_by,
+      _id: this._id,
+      created_at: this.created_at,
+      updated_at: this.updated_at,
+    };
+  };
+  return Todo;
+})();
+module.exports = Todo;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJUb2RvIiwicHJvdG90eXBlIiwiZ2V0UHVibGljRmllbGRzIiwiY3JlYXRlZF9ieSIsIl9pZCIsImNyZWF0ZWRfYXQiLCJ1cGRhdGVkX2F0IiwibW9kdWxlIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3R5cGVkL2NvbnRhaW5lcnMvdG9kb3MvVG9kb0VudGl0eS5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJcInVzZSBzdHJpY3RcIjtcbi8qKlxuIGh0dHBzOi8vbW9uZ29vc2Vqcy5jb20vZG9jcy80LngvZG9jcy9hZHZhbmNlZF9zY2hlbWFzLmh0bWxcbiAqQSBjbGFzcyBtZXRob2QgbWFwcyB0byBhIHNjaGVtYSBtZXRob2QsIGEgc3RhdGljIG1ldGhvZCBtYXBzIHRvIGEgc2NoZW1hIHN0YXRpYyxcbiBhbmQgZ2V0dGVycy9zZXR0ZXJzIG1hcCB0byB2aXJ0dWFscy5cbiovXG52YXIgVG9kbyA9IC8qKiBAY2xhc3MgKi8gKGZ1bmN0aW9uICgpIHtcbiAgICBmdW5jdGlvbiBUb2RvKCkge1xuICAgIH1cbiAgICBUb2RvLnByb3RvdHlwZS5nZXRQdWJsaWNGaWVsZHMgPSBmdW5jdGlvbiAoKSB7XG4gICAgICAgIHJldHVybiB7XG4gICAgICAgICAgICBjcmVhdGVkX2J5OiB0aGlzLmNyZWF0ZWRfYnksXG4gICAgICAgICAgICBfaWQ6IHRoaXMuX2lkLFxuICAgICAgICAgICAgY3JlYXRlZF9hdDogdGhpcy5jcmVhdGVkX2F0LFxuICAgICAgICAgICAgdXBkYXRlZF9hdDogdGhpcy51cGRhdGVkX2F0LFxuICAgICAgICB9O1xuICAgIH07XG4gICAgcmV0dXJuIFRvZG87XG59KCkpO1xubW9kdWxlLmV4cG9ydHMgPSBUb2RvO1xuIl0sIm1hcHBpbmdzIjoiQUFBQSxZQUFZOztBQUNaO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxJQUFJQSxJQUFJLEdBQUcsYUFBZSxZQUFZO0VBQ2xDLFNBQVNBLElBQUksR0FBRyxDQUNoQjtFQUNBQSxJQUFJLENBQUNDLFNBQVMsQ0FBQ0MsZUFBZSxHQUFHLFlBQVk7SUFDekMsT0FBTztNQUNIQyxVQUFVLEVBQUUsSUFBSSxDQUFDQSxVQUFVO01BQzNCQyxHQUFHLEVBQUUsSUFBSSxDQUFDQSxHQUFHO01BQ2JDLFVBQVUsRUFBRSxJQUFJLENBQUNBLFVBQVU7TUFDM0JDLFVBQVUsRUFBRSxJQUFJLENBQUNBO0lBQ3JCLENBQUM7RUFDTCxDQUFDO0VBQ0QsT0FBT04sSUFBSTtBQUNmLENBQUMsRUFBRztBQUNKTyxNQUFNLENBQUNDLE9BQU8sR0FBR1IsSUFBSSJ9

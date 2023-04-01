@@ -10,8 +10,8 @@ class TodoRepository extends BaseRepository {
   }
 
   async create(payload) {
-    if (payload.email) {
-      const existingTodo = await this.find({ description: payload.description }, undefined, {
+    if (payload.title) {
+      const existingTodo = await this.find({ title: payload.title }, undefined, {
         lean: true,
       });
       if (existingTodo) {
