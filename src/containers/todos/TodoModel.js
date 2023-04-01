@@ -3,7 +3,7 @@ import Todo from "./TodoEntity";
 
 const todoSchema = new mongoose.Schema(
   {
-    name: {
+    title: {
       type: String,
       unique: true,
     },

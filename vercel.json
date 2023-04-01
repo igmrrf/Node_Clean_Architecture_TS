@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "nodejs-mysql",
+  "name": "node_clean",
   "builds": [{ "src": "dist/index.js", "use": "@vercel/node" }],
   "routes": [{ "src": "/(.*)", "dest": "/dist/index.js" }]
 }
