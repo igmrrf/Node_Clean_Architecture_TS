@@ -14,7 +14,6 @@ import restServer from "interfaces/rest/Server";
 const container = createContainer({
   injectionMode: InjectionMode.PROXY,
 });
-console.log({ config });
 
 container.register({
   config: asValue(config),

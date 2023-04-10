@@ -54,8 +54,7 @@ function writeIntoFile(dir: string = path.join(process.cwd(), `src/containers/${
 
       fs.writeFile(file, content, (err: any) => {
         if (err) {
-          console.error(err);
-          return;
+          throw new Error(err.message);
         }
       });
     });
@@ -74,8 +73,7 @@ function writeIntoFile(dir: string = path.join(process.cwd(), `src/containers/${
       else if (file.includes(`Get${CFolder}s.ts`)) content = getContent;
       fs.writeFile(file, content, (err: any) => {
         if (err) {
-          console.error(err);
-          return;
+          throw new Error(err.message);
         }
       });
     });

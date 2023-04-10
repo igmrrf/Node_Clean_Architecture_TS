@@ -22,7 +22,6 @@ fs.readdirSync(__dirname)
     const config = require(path.join(__dirname, file));
     serviceConfig = { ...serviceConfig, ...config };
     serviceConfig = Object.assign(serviceConfig, config);
-    console.log({ serviceConfig });
   });
 
 const config = convict(serviceConfig);
