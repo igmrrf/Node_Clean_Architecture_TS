@@ -4,3 +4,4 @@ ous winston-bugsnaq winston-loggly-bulk
 
 yarn add -D run-sequence sinon sinon-chai supertest redis-memory-se
 rver mongoose-mock mocha minimist ioredis gulp-watch gulp-util gulp-todo gulp-nodemon gulp-mocha gulp-jshint gulp-git gulp-conventional-changelog gulp-bump fs eslint conventional-github-release chai-as-promised chai
+// "test": "NODE_ENV=test nyc --reporter=text --reporter=html --reporter=lcov ts-mocha --require @babel/register \"src/**/**/\*.spec.ts\" --exit --timeout 20000 --recursive",

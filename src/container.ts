@@ -6,12 +6,15 @@ import PaymentService from "base/payments/Stripe";
 import StorageService from "base/storage/Cloudinary";
 import config from "config";
 import mongodbModels from "containers/models";
-import routes from "interfaces/rest/routes/router";
+import ErrorHandler from "interfaces/rest/middlewares/errorHandler";
+import Error404 from "interfaces/rest/middlewares/notFoundHandler";
+import routes from "interfaces/rest/routes";
 import restServer from "interfaces/rest/Server";
 
 const container = createContainer({
   injectionMode: InjectionMode.PROXY,
 });
+console.log({ config });
 
 container.register({
   config: asValue(config),
@@ -20,6 +23,8 @@ container.register({
   logger: asValue(logger),
   containerMiddleware: asValue(scopePerRequest(container)),
   routes: asFunction(routes),
+  error404: asValue(Error404),
+  errorHandler: asValue(ErrorHandler),
   restServer: asClass(restServer),
   storageService: asClass(StorageService).singleton(),
   paymentService: asClass(PaymentService).singleton(),
@@ -29,7 +34,7 @@ container.loadModules(
   [
     // Load use-cases
     [
-      "app/**/*!(index.js).js",
+      "app/**/*!(index.js).ts",
       {
         lifetime: Lifetime.SCOPED,
         register: asClass,
@@ -37,7 +42,7 @@ container.loadModules(
     ],
     // Load repositories
     [
-      "containers/*/*Repository.js",
+      "containers/*/*Repository.ts",
       {
         lifetime: Lifetime.SCOPED,
         register: asClass,
@@ -55,7 +60,7 @@ container.loadModules(
   [
     // Load entities
     [
-      "containers/*/*Entity.js",
+      "containers/*/*Entity.ts",
       {
         lifetime: Lifetime.SCOPED,
         register: asClass,

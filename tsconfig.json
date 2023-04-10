@@ -26,6 +26,9 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "allowSyntheticDefaultImports": true,
     "sourceMap": false,
+    // !remove
+    // "strictFunctionTypes": true,
+    // "strictBindCallApply": true,
     // "moduleDetection": "auto",
 
     "baseUrl": "./src",

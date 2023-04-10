@@ -1,5 +1,15 @@
-const plugins = () => {
-  const defaultPlugins = [
+module.exports = {
+  presets: [
+    [
+      "@babel/preset-typescript",
+      {
+        targets: {
+          node: "16.18.0",
+        },
+      },
+    ],
+  ],
+  plugins: [
     [
       "@babel/plugin-transform-runtime",
       {
@@ -16,43 +26,27 @@ const plugins = () => {
       {
         cwd: "babelrc",
         alias: {
-          typed: "./typed",
-          app: "./typed/app",
-          spec: "./typed/spec/",
-          base: "./typed/base/",
-          test: "./typed/test/",
-          utils: "./typed/utils/",
-          config: "./typed/config",
-          domain: "./typed/domain/",
-          modules: "./typed/modules/",
-          helpers: "./typed/helpers/",
-          containers: "./typed/containers",
-          interfaces: "./typed/interfaces/",
-          rest: "typed/interfaces/rest/*",
-          grpc: "typed/interfaces/grpc/*",
-          errors: "./typed/interfaces/rest/errors",
-          routes: "./typed/interfaces/rest/routes",
-          controllers: "./typed/interfaces/rest/controllers",
-          Validations: "./typed/interfaces/rest/validations",
-          middlewares: "./typed/interfaces/rest/middlewares",
-        },
-      },
-    ],
-  ];
-
-  return defaultPlugins;
-};
-
-module.exports = {
-  presets: [
-    [
-      "@babel/preset-typescript",
-      {
-        targets: {
-          node: "16.18.0",
+          src: "./src",
+          app: "./src/app",
+          spec: "./src/spec/",
+          base: "./src/base/",
+          test: "./src/test/",
+          utils: "./src/utils/",
+          config: "./src/config",
+          domain: "./src/domain/",
+          modules: "./src/modules/",
+          helpers: "./src/helpers/",
+          containers: "./src/containers",
+          interfaces: "./src/interfaces/",
+          rest: "src/interfaces/rest/*",
+          grpc: "src/interfaces/grpc/*",
+          errors: "./src/interfaces/rest/errors",
+          routes: "./src/interfaces/rest/routes",
+          controllers: "./src/interfaces/rest/controllers",
+          Validations: "./src/interfaces/rest/validations",
+          middlewares: "./src/interfaces/rest/middlewares",
         },
       },
     ],
   ],
-  plugins: plugins(),
 };
