@@ -8,8 +8,19 @@ class App {
   restServer: any;
   logger: Logger;
   db: any;
+  cache: any;
 
-  constructor({ restServer, logger, db }: { restServer: Server; logger: Logger; db: Mongoose }) {
+  constructor({
+    restServer,
+    logger,
+    db,
+    cache,
+  }: {
+    restServer: Server;
+    logger: Logger;
+    db: Mongoose;
+    cache: any;
+  }) {
     this.restServer = restServer;
     this.logger = logger;
     this.db = db;
@@ -35,6 +46,8 @@ class App {
         });
       }
       await this.db.close();
+      await this.cache.disconnect();
+
       process.exit(err ? 1 : 0);
     });
   }

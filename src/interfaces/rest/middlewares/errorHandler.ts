@@ -45,19 +45,19 @@ const ErrorHandler = async (err: any, req: Request, res: Response, next: NextFun
 
   if (err.name || err.error) {
     if (err.name === "ValidationError" || (err.error && err.error.name === "ValidationError")) {
-      return ResponseBuilder.getResponseHandler(res).onError(
+      return ResponseBuilder.getResponseHandler(req, res).onError(
         err.name || err.error.name,
         HttpStatus.BAD_REQUEST,
         err.message || err.error.toString(),
         err.errors || err.error.details,
       );
     }
-    return ResponseBuilder.getResponseHandler(res).onError(err.name, err.status, err.message, err.data);
+    return ResponseBuilder.getResponseHandler(req, res).onError(err.name, err.status, err.message, err.data);
   }
 
   const errorMessage = process.env.NODE_ENV === "production" ? "Something bad happened!" : err.message;
   const errorData = process.env.NODE_ENV === "production" ? {} : err;
-  return ResponseBuilder.getResponseHandler(res).onError(
+  return ResponseBuilder.getResponseHandler(req, res).onError(
     "InternalServerError",
     err.status || HttpStatus.INTERNAL_SERVER_ERROR,
     errorMessage,

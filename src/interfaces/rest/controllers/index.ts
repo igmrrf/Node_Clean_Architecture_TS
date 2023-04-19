@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Request, Response } from "express";
 import NotImplementedError from "../errors/NotImplementedError";
-import ResponseBuilder from "../response/ResponseBuilder";
+import ResponseManager from "../response/ResponseBuilder";
 
 class BaseController {
   responseBuilder: any;
@@ -9,7 +9,8 @@ class BaseController {
     if (new.target === BaseController) {
       throw new TypeError("Cannot construct BaseController instances directly");
     }
-    this.responseBuilder = ResponseBuilder;
+
+    this.responseBuilder = ResponseManager;
   }
 
   async getAll(req: Request, res: Response) {

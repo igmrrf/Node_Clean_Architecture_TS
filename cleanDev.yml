@@ -9,7 +9,7 @@ services:
     #     - redis
   # The Application
   api:
-    image: ioluefemi/veend-tenantapi:dev
+    image: igmrrf/-tenantapi:dev
     # networks:
     #     - redis
     ports:
@@ -23,7 +23,7 @@ services:
       - PORT=8080
       - NO_CACHE=no
       - WORKER_CONCURRENCY=1
-      - TENANT_URL=https://cba.veendhq.com:8443/fineract-provider
+      - TENANT_URL=https://cba.hq.com:8443/fineract-provider
       - RETRY_COUNT=200
       - FRONTEND_CACHE_EXPIRY=30
       - BACKEND_CACHE_EXPIRY=30
@@ -32,7 +32,7 @@ services:
       replicas: 1
   # The clock
   clock:
-    image: ioluefemi/vend-tenantclock:dev
+    image: igmrrf/-tenantclock:dev
     # networks:
     #     - redis
     environment:
@@ -43,11 +43,11 @@ services:
       - PORT=8080
       - NO_CACHE=no
       - WORKER_CONCURRENCY=1
-      - TENANT_URL=https://cba.veendhq.com:8443/fineract-provider
+      - TENANT_URL=https://cba.hq.com:8443/fineract-provider
     restart: always
   # The Worker
   worker:
-    image: ioluefemi/vend-tenantworker:dev
+    image: igmrrf/-tenantworker:dev
     # networks:
     #     - redis
     environment:
@@ -58,30 +58,30 @@ services:
       - PORT=8080
       - NO_CACHE=no
       - WORKER_CONCURRENCY=1
-      - TENANT_URL=https://cba.veendhq.com:8443/fineract-provider
+      - TENANT_URL=https://cba.hq.com:8443/fineract-provider
     restart: always
-  vend_loan:
-    image: ioluefemi/veend-loan-staging
+  _loan:
+    image: igmrrf/-loan-staging
     ports:
       - 6429:80
     environment:
       - NODE_ENV=development
-      - REACT_APP_BASE_URL=https://api2.veendhq.com
+      - REACT_APP_BASE_URL=https://api2.hq.com
     restart: always
     deploy:
       replicas: 1
-  veend_dashboard:
-    image: ioluefemi/veendhq-dashboard-staging
+  _dashboard:
+    image: igmrrf/hq-dashboard-staging
     ports:
       - 6427:80
     environment:
-      - REACT_APP_BASE_URL=https://api2.veendhq.com
+      - REACT_APP_BASE_URL=https://api2.hq.com
       - NODE_ENV=development
     restart: always
     deploy:
       replicas: 1
-  veend_website:
-    image: ioluefemi/veendhq_website:latest
+  _website:
+    image: igmrrf/hq_website:latest
     ports:
       - 7077:80
     restart: always
@@ -93,12 +93,12 @@ services:
     #     - redis
     restart: always
   tenantcreator:
-    image: ioluefemi/veendhq-tenant-creator:latest
+    image: igmrrf/hq-tenant-creator:latest
     restart: always
     deploy:
       replicas: 1
     environment:
-      - SQL_HOST=veendhq-database-1.cpfnbx6xobk2.eu-west-1.rds.amazonaws.com
+      - SQL_HOST=hq-database-1.cpfnbx6xobk2.eu-west-1.rds.amazonaws.com
       - SQL_USER=tenant
       - SQL_PASSWORD=tenant123
       - ENV=development

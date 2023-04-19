@@ -38,13 +38,13 @@ class UserController extends BaseController {
   async createUser(req: Request, res: Response) {
     const payload = pick(req.body, this.allowedPayloads);
     const response = await this.create.execute(payload);
-    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "User added successfully");
+    return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "User added successfully");
   }
 
   async login(req: Request, res: Response) {
     const payload = pick(req.body, ["username", "password"]);
     const response = await this.auth.execute(payload);
-    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "Auth successful!");
+    return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "Auth successful!");
   }
 
   async updateUser(req: Request, res: Response) {
@@ -52,26 +52,26 @@ class UserController extends BaseController {
     const body = pick(req.body, ["username", "discord", "twitter", "type", "verified"]);
     const payload = { ...body, _id };
     const response = await this.update.execute(payload);
-    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "User updated successfully");
+    return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "User updated successfully");
   }
 
   async deleteUser(req: Request, res: Response) {
     const { id: _id } = pick(req.params, ["id"]);
     const payload = { _id };
     const response = await this.remove.execute(payload);
-    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "User deleted successfully!");
+    return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "User deleted successfully!");
   }
 
   async getUsers(req: Request, res: Response) {
     const response = await this.getAll.execute();
-    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "User(s) fetched successfully!");
+    return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "User(s) fetched successfully!");
   }
 
   async getUser(req: Request, res: Response) {
     const { id: _id } = pick(req.params, ["id"]);
     const payload = { _id };
     const response = await this.getOne.execute(payload);
-    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "User fetched successfully!");
+    return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "User fetched successfully!");
   }
 }
 

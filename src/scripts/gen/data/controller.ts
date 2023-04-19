@@ -35,7 +35,7 @@ class ${name}Controller extends BaseController {
   async create${name}(req: Request, res: Response) {
     const payload = pick(req.body, this.allowedPayloads);
     const response = await this.create.execute(payload);
-    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "${name} added successfully");
+    return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "${name} added successfully");
   }
 
   async update${name}(req: Request, res: Response) {
@@ -43,26 +43,26 @@ class ${name}Controller extends BaseController {
     const body = pick(req.body, ["", ""]);
     const payload = { ...body, _id };
     const response = await this.update.execute(payload);
-    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "${name} udpated successfully");
+    return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "${name} udpated successfully");
   }
 
   async delete${name}(req: Request, res: Response) {
     const { id: _id } = pick(req.params, ["id"]);
     const payload = { _id };
     const response = await this.remove.execute(payload);
-    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "${name} deleted successfully!");
+    return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "${name} deleted successfully!");
   }
 
   async get${name}s(req: Request, res: Response) {
     const response = await this.getAll.execute();
-    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "${name}(s) fetched successfully!");
+    return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "${name}(s) fetched successfully!");
   }
 
   async get${name}(req: Request, res: Response) {
     const { id: _id } = pick(req.params, ["id"]);
     const payload = { _id };
     const response = await this.getOne.execute(payload);
-    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "${name} fetched successfully!");
+    return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "${name} fetched successfully!");
   }
 }
 

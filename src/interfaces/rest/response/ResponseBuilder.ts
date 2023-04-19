@@ -1,4 +1,7 @@
-import { Response } from "express";
+import RedisDBManager from "base/database/RedisDBManager";
+import logger from "base/logger";
+import config from "config";
+import { Request, Response } from "express";
 import HttpStatus from "http-status-codes";
 
 interface ResponseType {
@@ -20,14 +23,19 @@ const BasicResponse: ResponseType = {
  * Handles API responses
  */
 class ResponseManager {
+  static get cache() {
+    const redisCache = new RedisDBManager({ config, logger });
+    return redisCache;
+  }
+
   static get HTTP_STATUS() {
     return HttpStatus;
   }
 
-  static getResponseHandler(res: Response) {
+  static getResponseHandler(req: Request, res: Response) {
     return {
-      onSuccess(data: object, message: string, code: number, links: string[]) {
-        return ResponseManager.respondWithSuccess(res, code, data, message, links);
+      onSuccess(data: object, message?: string, code?: number, links?: string[]) {
+        return ResponseManager.respondWithSuccess(res, code, data, message, links, req);
       },
       onError(errorName: string, errorCode: number, errorMessage: string, data: object) {
         return ResponseManager.respondWithError(res, errorName, errorCode, errorMessage, data);
@@ -48,7 +56,8 @@ class ResponseManager {
     code = ResponseManager.HTTP_STATUS.OK,
     data = {},
     message = "success",
-    links: string[],
+    links?: string[],
+    req?: Request,
   ) {
     const response = { ...BasicResponse };
     response.success = true;
@@ -56,6 +65,11 @@ class ResponseManager {
     response.data = data;
     response.links = links;
     response.status_code = code;
+    if (req && req.method === "GET") {
+      const cacheResponse = JSON.stringify(response);
+      ResponseManager.cache.setCacheKey(req);
+      ResponseManager.cache.cacheSetter(ResponseManager.cache.cacheKey, cacheResponse);
+    }
     return res.status(code).json(response);
   }
 

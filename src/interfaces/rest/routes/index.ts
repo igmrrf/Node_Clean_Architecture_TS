@@ -1,5 +1,3 @@
-// import CacheMan from "cacheman";
-// import EngineRedis from "cacheman-redis";
 import cors from "cors";
 import express, { Router } from "express";
 import helmet from "helmet";
@@ -10,11 +8,13 @@ import v1Routes from "./v1";
  * Configures express middlewares
  */
 export default ({
+  cache,
   config,
   containerMiddleware,
   error404,
   errorHandler,
 }: {
+  cache: any;
   config: any;
   containerMiddleware: any;
   error404: any;
@@ -26,35 +26,6 @@ export default ({
   router.use(morgan(NODE_ENV === "production" ? "combined" : "dev"));
 
   const bodyLimit = config.get("app.bodyLimit");
-  // const appName = config.get("app.serviceName");
-  // const cacheExpiry = config.get("app.cacheExpiry");
-
-  // const caching = async (req, res, next) => {
-  //   // Set up Cache Engine
-  //   const cache = new EngineRedis();
-  //   const apiCache = new CacheMan(appName, { engine: cache, ttl: cacheExpiry });
-  //   req.cache = apiCache;
-
-  //   res.set({ "Cache-Control": `private, max-age=${cacheExpiry}` });
-
-  //   // Create Cache Key
-  //   const key = [];
-  //   key.push(req.url);
-  //   key.push(req.ip);
-  //   key.push(req.cookies);
-  //   key.push(req.get("Content-Type"));
-
-  //   req.cacheKey = key;
-
-  //   if (req.method === "GET" && req.cacheKey) {
-  //     const cacheResponse = await req.cache.get(req.cacheKey);
-
-  //     if (cacheResponse) {
-  //       return res.ok(cacheResponse, true);
-  //     }
-  //   }
-  //   return next();
-  // };
 
   router.use(express.urlencoded({ extended: false, limit: bodyLimit }));
   router.use(express.json({ limit: bodyLimit }));
@@ -82,9 +53,8 @@ export default ({
   );
 
   // Setup Caching
-  // router.use(caching());
+  router.use(cache.useCache);
 
-  // https://www.npmjs.com/package/awilix-express
   router.use(containerMiddleware);
 
   router.get("/", (req, res) => res.json({ message: "Node_Clean" }));

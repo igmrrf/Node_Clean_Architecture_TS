@@ -34,7 +34,7 @@ class TodoController extends BaseController {
   async createTodo(req: Request, res: Response) {
     const payload = pick(req.body, this.allowedPayloads);
     const response = await this.create.execute(payload);
-    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "Todo added successfully");
+    return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "Todo added successfully");
   }
 
   async updateTodo(req: Request, res: Response) {
@@ -42,26 +42,26 @@ class TodoController extends BaseController {
     const body = pick(req.body, ["", ""]);
     const payload = { ...body, _id };
     const response = await this.update.execute(payload);
-    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "Todo udpated successfully");
+    return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "Todo updated successfully");
   }
 
   async deleteTodo(req: Request, res: Response) {
     const { id: _id } = pick(req.params, ["id"]);
     const payload = { _id };
     const response = await this.remove.execute(payload);
-    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "Todo deleted successfully!");
+    return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "Todo deleted successfully!");
   }
 
   async getTodos(req: Request, res: Response) {
     const response = await this.getAll.execute();
-    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "Todo(s) fetched successfully!");
+    return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "Todo(s) fetched successfully!");
   }
 
   async getTodo(req: Request, res: Response) {
     const { id: _id } = pick(req.params, ["id"]);
     const payload = { _id };
     const response = await this.getOne.execute(payload);
-    return this.responseBuilder.getResponseHandler(res).onSuccess(response, "Todo fetched successfully!");
+    return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "Todo fetched successfully!");
   }
 }
 

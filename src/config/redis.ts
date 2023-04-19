@@ -1,4 +1,4 @@
-export const db = {
+export const redis = {
   auth: {
     doc: "Database requires authentication",
     format: Boolean,
@@ -9,7 +9,7 @@ export const db = {
   port: {
     doc: "The mongo database port",
     format: "port",
-    default: 27017,
+    default: 6379,
     env: "MONGO_PORT",
     sensitive: false,
   },
@@ -39,6 +39,13 @@ export const db = {
     format: "*",
     default: "",
     env: "MONGO_PASSWORD",
+    sensitive: true,
+  },
+  url: {
+    doc: "The redis url",
+    format: "*",
+    default: "",
+    env: "REDIS_URL",
     sensitive: true,
   },
 };

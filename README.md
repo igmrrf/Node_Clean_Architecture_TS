@@ -1,5 +1,7 @@
 # Node Clean Architecture Template
 
+visti node_modules/@types/convict/index.d.ts line 136 and add optional string value "| string" to the chain
+
 [![Pull Request Check CI](https://github.com/igmrrf/Node_Clean_Architecture/actions/workflows/ci.yml/badge.svg)](https://github.com/igmrrf/Node_Clean_Architecture/actions/workflows/ci.yml) \
 A simple starter template for NodeJS apps using clean architecture
 

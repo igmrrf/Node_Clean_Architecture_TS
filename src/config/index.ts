@@ -24,7 +24,7 @@ fs.readdirSync(__dirname)
     serviceConfig = Object.assign(serviceConfig, config);
   });
 
-const config = convict(serviceConfig);
+const config = convict<unknown>(serviceConfig, {});
 config.validate({ allowed: "strict" });
 
 export default config;

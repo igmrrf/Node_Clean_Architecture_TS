@@ -12,14 +12,14 @@ services:
       - PORT=8080
       - LOGGLY_TOKEN=5b19c66d-8581-4b6f-a8dc-1b02d1f49385
       - LOGGLY_SUBDOMAIN=ensemblelab
-      - LOGGLY_TAG=veend
+      - LOGGLY_TAG=ajian
       - NO_CACHE=no
       - BUGSNAG_KEY=1e250fdeb846cb0db714ceb9459884a6
       - RATE_LIMIT_EXPIRY=60000
       - RATE_LIMIT=5600
       - WORKER_CONCURRENCY=1
       - NODE_ENV=production
-      - LOANDISK_MIDDLEWARE_BASEURL=https://test2.veendhq.com
+      - LOANDISK_MIDDLEWARE_BASEURL=https://test2.hq.com
       - FRONTEND_CACHE_EXPIRY=30
       - BACKEND_CACHE_EXPIRY=30
     links:
@@ -40,7 +40,7 @@ services:
       - PORT=8080
       - LOGGLY_TOKEN=5b19c66d-8581-4b6f-a8dc-1b02d1f49385
       - LOGGLY_SUBDOMAIN=ensemblelab
-      - LOGGLY_TAG=veend
+      - LOGGLY_TAG=ajian
       - NO_CACHE=no
       - BUGSNAG_KEY=1e250fdeb846cb0db714ceb9459884a6
       - RATE_LIMIT_EXPIRY=60000
@@ -61,7 +61,7 @@ services:
       - PORT=8080
       - LOGGLY_TOKEN=5b19c66d-8581-4b6f-a8dc-1b02d1f49385
       - LOGGLY_SUBDOMAIN=ensemblelab
-      - LOGGLY_TAG=veend
+      - LOGGLY_TAG=ajian
       - NO_CACHE=no
       - BUGSNAG_KEY=1e250fdeb846cb0db714ceb9459884a6
       - RATE_LIMIT_EXPIRY=60000

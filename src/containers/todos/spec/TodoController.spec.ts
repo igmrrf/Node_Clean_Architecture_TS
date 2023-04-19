@@ -4,8 +4,12 @@ import DeleteTodo from "app/todos/DeleteTodo";
 import GetTodo from "app/todos/GetTodo";
 import GetTodos from "app/todos/GetTodos";
 import UpdateTodo from "app/todos/UpdateTodo";
+import RedisDBManager from "base/database/RedisDBManager";
+import logger from "base/logger";
 import { expect } from "chai";
+import config from "config";
 import dbHandler from "helpers/testConfig";
+import ResponseManager from "interfaces/rest/response/ResponseBuilder";
 import httpMock from "node-mocks-http";
 import TodoController from "../TodoController";
 import TodoModel from "../TodoModel";
@@ -15,13 +19,19 @@ import MOCK_DATA from "./MOCK_DATA";
 const { todoPayload, userPayload } = MOCK_DATA;
 
 describe("********** TodoController **********", () => {
-  const classInput = { models: { Todo: TodoModel }, currentUser: userPayload };
+  const classInput = {
+    models: { Todo: TodoModel },
+    currentUser: userPayload,
+  };
+  const todoRepository = { todoRepository: new TodoRepository(classInput) };
+
   const construct = {
-    createTodo: new CreateTodo({ todoRepository: new TodoRepository(classInput) }),
-    updateTodo: new UpdateTodo({ todoRepository: new TodoRepository(classInput) }),
-    deleteTodo: new DeleteTodo({ todoRepository: new TodoRepository(classInput) }),
-    getTodo: new GetTodo({ todoRepository: new TodoRepository(classInput) }),
-    getTodos: new GetTodos({ todoRepository: new TodoRepository(classInput) }),
+    responseBuilder: new ResponseManager({ cache: new RedisDBManager({ config, logger }) }),
+    createTodo: new CreateTodo(todoRepository),
+    updateTodo: new UpdateTodo(todoRepository),
+    deleteTodo: new DeleteTodo(todoRepository),
+    getTodo: new GetTodo(todoRepository),
+    getTodos: new GetTodos(todoRepository),
   };
   /**
    * Connect to a new in-memory database before running any tests.
