@@ -36,8 +36,9 @@ class UserController extends BaseController {
   }
 
   async createUser(req: Request, res: Response) {
+    const { tenant } = pick(req.query, ["tenant"]);
     const payload = pick(req.body, this.allowedPayloads);
-    const response = await this.create.execute(payload);
+    const response = await this.create.execute({ ...payload, tenant });
     return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "User added successfully");
   }
 
@@ -63,7 +64,9 @@ class UserController extends BaseController {
   }
 
   async getUsers(req: Request, res: Response) {
-    const response = await this.getAll.execute();
+    const { tenant } = pick(req.query, ["tenant"]);
+    const payload = { tenant };
+    const response = await this.getAll.execute(payload);
     return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "User(s) fetched successfully!");
   }
 

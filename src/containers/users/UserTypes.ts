@@ -2,6 +2,7 @@ import { Model, Types } from "mongoose";
 
 export interface IUser {
   _id: string;
+  tenant: string;
   first_name: string;
   last_name: string;
   username: string;

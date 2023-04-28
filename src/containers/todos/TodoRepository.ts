@@ -10,7 +10,8 @@ class TodoRepository extends BaseRepository {
   currentUser: HydratedDocument<ITodo>;
 
   constructor({ models: { Todo }, currentUser }: { models: any; currentUser: any }) {
-    super({ Model: Todo });
+    super({ Model: Todo.default });
+
     this.Todo = Todo;
     this.currentUser = currentUser;
   }

@@ -1,54 +1,35 @@
-import { RedisCommandArgument } from "@redis/client/dist/lib/commands";
 import { Config } from "convict";
 import { NextFunction, Request, Response } from "express";
 import ResponseManager from "interfaces/rest/response/ResponseBuilder";
-import * as redis from "redis";
+import Redis, { RedisKey, RedisValue } from "ioredis";
 import { Logger } from "winston";
 
 class RedisDBManager {
   config!: Config<unknown>;
   logger: Logger;
-  client: redis.RedisClientType;
   appName: any;
   cacheExpiry: any;
   key = "";
+  client: Redis;
 
   constructor({ config, logger }: { config: Config<unknown>; logger: Logger }) {
     this.config = config;
     this.logger = logger;
     // const redisUrl = config.get("redis.url");
-    // this.client = redis.createClient({ url: redisUrl });
-    this.client = redis.createClient();
+    // this.client = new Redis({ url: redisUrl });
+    // Todo: Solve the typescript error on config
     this.appName = config.get("app.serviceName");
     this.cacheExpiry = config.get("app.cacheExpiry");
-
+    this.client = new Redis();
     this.client.on("error", (err: any) => this.logger.error("Redis Client Error: ", err));
-    this.client.on("connect", () => this.logger.info("Connecting to Redis"));
+    this.client.on("connect", () => this.logger.info("Attempting to Connect to Redis"));
     this.client.on("ready", () => this.logger.info("Successfully connected to Redis"));
-
-    this.connect();
-  }
-
-  async connect(numOfRetries = 3) {
-    try {
-      await this.client.connect();
-    } catch (error: any) {
-      this.logger.error("Failed to connect to Redis", error);
-
-      if (numOfRetries <= 0) {
-        this.logger.error("Exhausted max number of retires for connecting Redis");
-        process.exit(1);
-      }
-      setTimeout(() => {
-        this.connect(numOfRetries - 1);
-      }, 1000);
-    }
   }
 
   async disconnect() {
-    this.logger.info("Disconnecting database connection...");
+    this.logger.info("Disconnecting REDIS...");
     try {
-      await this.client.quit();
+      await this.client.disconnect();
     } catch (error: any) {
       this.logger.error("Error while disconnecting Redis Database", { error });
       process.exit(1);
@@ -57,17 +38,7 @@ class RedisDBManager {
 
   async useCache(req: Request, res: Response, next: NextFunction) {
     if (req.method === "GET") {
-      // Create Cache Key
-      const key = [];
-      key.push(req.url);
-      key.push(req.ip);
-      key.push(req.cookies);
-      key.push(req.get("Content-Type"));
-      key.push(req.get("user-agent"));
-      key.push(req.get("x-jwt"));
-      key.push(req.get("Authorization"));
-
-      this.key = key.toString();
+      this.setCacheKey(req);
 
       // Set cacheExpiry
       res.set({ "Cache-Control": `private, max-age=${this.cacheExpiry}` });
@@ -85,8 +56,9 @@ class RedisDBManager {
     return next();
   }
 
-  cacheSetter(key: RedisCommandArgument, value: RedisCommandArgument) {
-    this.client.set(key, value);
+  async cacheSetter(key: RedisKey, value: RedisValue) {
+    await this.client.set(key, value);
+    await this.client.expire(key, this.cacheExpiry);
   }
 
   get cacheKey() {

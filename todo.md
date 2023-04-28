@@ -1,7 +1,6 @@
-yarn add redis aes-js axios cacheman cacheman-redis cron debug ejs express express-content-length-validator express-e
-nforce-ssl express-limiter form-data got gulp helmet nocache node-cache number-words passport passport-http-bearer passport-jwt soap tedi
-ous winston-bugsnaq winston-loggly-bulk
+### TODOs
 
-yarn add -D run-sequence sinon sinon-chai supertest redis-memory-se
-rver mongoose-mock mocha minimist ioredis gulp-watch gulp-util gulp-todo gulp-nodemon gulp-mocha gulp-jshint gulp-git gulp-conventional-changelog gulp-bump fs eslint conventional-github-release chai-as-promised chai
-// "test": "NODE_ENV=test nyc --reporter=text --reporter=html --reporter=lcov ts-mocha --require @babel/register \"src/**/**/\*.spec.ts\" --exit --timeout 20000 --recursive",
+| Filename                                       | line # | TODO                                 |
+| :--------------------------------------------- | :----: | :----------------------------------- |
+| base/database/RedisDBManager.ts                |   20   | Solve the typescript error on config |
+| interfaces/rest/middlewares/checkPermission.ts |   6    | Implement permissions                |

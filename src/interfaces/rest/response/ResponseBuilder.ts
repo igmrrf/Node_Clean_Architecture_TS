@@ -1,6 +1,3 @@
-import RedisDBManager from "base/database/RedisDBManager";
-import logger from "base/logger";
-import config from "config";
 import { Request, Response } from "express";
 import HttpStatus from "http-status-codes";
 
@@ -23,11 +20,6 @@ const BasicResponse: ResponseType = {
  * Handles API responses
  */
 class ResponseManager {
-  static get cache() {
-    const redisCache = new RedisDBManager({ config, logger });
-    return redisCache;
-  }
-
   static get HTTP_STATUS() {
     return HttpStatus;
   }
@@ -65,11 +57,6 @@ class ResponseManager {
     response.data = data;
     response.links = links;
     response.status_code = code;
-    if (req && req.method === "GET") {
-      const cacheResponse = JSON.stringify(response);
-      ResponseManager.cache.setCacheKey(req);
-      ResponseManager.cache.cacheSetter(ResponseManager.cache.cacheKey, cacheResponse);
-    }
     return res.status(code).json(response);
   }
 

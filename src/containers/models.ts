@@ -15,11 +15,13 @@ fs.readdirSync(__dirname)
       .filter((file) => file.indexOf("Model.ts") > -1)
       .forEach(async (file) => {
         // eslint-disable-next-line
-        const model = require(path.join(newDir, file)).default;
+        const full = require(path.join(newDir, file));
+        const model = full.default;
+
         // const modelImport = await import(path.join(newDir, file));
         // const model = modelImport.default;
 
-        models[model.modelName] = model;
+        models[model.modelName] = full;
       });
   });
 

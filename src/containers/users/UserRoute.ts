@@ -140,7 +140,7 @@ const { create, getOne, getAll, update, remove, login } = UserValidation;
 
 router
   .route("/")
-  .get(Auth("isStaff"), getAll, validateError, api("getUsers"))
+  .get(Auth("allowAny"), getAll, validateError, api("getUsers"))
   .post(Auth("allowAny"), create, validateError, api("createUser"))
   .all(MethodNotAllowedHandler);
 

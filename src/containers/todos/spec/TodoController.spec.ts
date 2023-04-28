@@ -4,10 +4,7 @@ import DeleteTodo from "app/todos/DeleteTodo";
 import GetTodo from "app/todos/GetTodo";
 import GetTodos from "app/todos/GetTodos";
 import UpdateTodo from "app/todos/UpdateTodo";
-import RedisDBManager from "base/database/RedisDBManager";
-import logger from "base/logger";
 import { expect } from "chai";
-import config from "config";
 import dbHandler from "helpers/testConfig";
 import ResponseManager from "interfaces/rest/response/ResponseBuilder";
 import httpMock from "node-mocks-http";
@@ -20,13 +17,13 @@ const { todoPayload, userPayload } = MOCK_DATA;
 
 describe("********** TodoController **********", () => {
   const classInput = {
-    models: { Todo: TodoModel },
+    models: { Todo: { default: TodoModel } },
     currentUser: userPayload,
   };
   const todoRepository = { todoRepository: new TodoRepository(classInput) };
 
   const construct = {
-    responseBuilder: new ResponseManager({ cache: new RedisDBManager({ config, logger }) }),
+    responseBuilder: new ResponseManager(),
     createTodo: new CreateTodo(todoRepository),
     updateTodo: new UpdateTodo(todoRepository),
     deleteTodo: new DeleteTodo(todoRepository),

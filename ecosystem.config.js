@@ -3,7 +3,7 @@ module.exports = {
     {
       name: "node_clean",
       script: "dist/index.js",
-      instances: 2,
+      instances: 1,
       autorestart: true,
       exec_mode: "cluster",
       watch: false,

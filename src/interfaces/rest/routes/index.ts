@@ -53,7 +53,7 @@ export default ({
   );
 
   // Setup Caching
-  router.use(cache.useCache);
+  // router.use(cache.useCache);
 
   router.use(containerMiddleware);
 

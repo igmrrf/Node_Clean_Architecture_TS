@@ -3,6 +3,5 @@
   "ext": ".ts,.js",
   "ignore": [".git", "node_modules/"],
   "delay": "3",
-
   "exec": "npx ts-node -r tsconfig-paths/register ./src/index.ts"
 }

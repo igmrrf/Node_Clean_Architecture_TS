@@ -24,6 +24,7 @@ class App {
     this.restServer = restServer;
     this.logger = logger;
     this.db = db;
+    this.cache = cache;
   }
 
   /**
@@ -42,11 +43,11 @@ class App {
       this.logger.info("Shutting down REST server");
       if (err) {
         this.logger.error("Error while shutting down server", {
-          error: err.toString(),
+          error: err.message,
         });
       }
-      await this.db.close();
       await this.cache.disconnect();
+      await this.db.close();
 
       process.exit(err ? 1 : 0);
     });

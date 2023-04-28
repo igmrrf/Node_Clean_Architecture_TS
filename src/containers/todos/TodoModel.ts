@@ -1,3 +1,4 @@
+import MongoDBManager from "base/database/MongoDBManager";
 import mongoose from "mongoose";
 import Todo from "./TodoEntity";
 import { ITodo } from "./TodoTypes";
@@ -38,7 +39,30 @@ const todoSchema = new mongoose.Schema<ITodo>(
     },
   },
 );
-
 todoSchema.loadClass(Todo);
 
-export default mongoose.model<ITodo>("Todo", todoSchema);
+const collection = "Todo";
+
+export async function override(database: string) {
+  // set the statics.database to tenant
+  // check if not a global
+  // if not a global, override it's mongo connection
+  // if global proceed with the default connection
+
+  todoSchema.statics.database = function () {
+    return database;
+  };
+  // if (!noLoop) {
+  //   if (checkIfNotGlobal(collection, "UserModel")) {
+  //     const model = await import("./UserModel");
+
+  //     // _models["UserModel"] = collect.override(database, true);
+  //   }
+  // }
+
+  const db: any = await MongoDBManager.override(database);
+
+  return db.model(collection, todoSchema);
+}
+
+export default mongoose.model<ITodo>(collection, todoSchema);

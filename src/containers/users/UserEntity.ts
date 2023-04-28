@@ -8,6 +8,7 @@ import { Date, Types } from "mongoose";
 
 class User {
   _id?: Types.ObjectId;
+  tenant?: string;
   first_name?: string;
   last_name?: string;
   username?: string;
@@ -34,6 +35,7 @@ class User {
       email: this.email,
       discord: this.discord,
       twitter: this.twitter,
+      tenant: this.tenant,
       type: this.type,
       coupons: this.coupons,
       stripe_customer: this.stripe_customer,
