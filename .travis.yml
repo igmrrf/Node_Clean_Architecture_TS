@@ -20,7 +20,7 @@ install:
   - npm install
   - gulp service -n api
   - gulp service -n test -b http://localhost:8080 -e apis
-  - npm start >> femi.log . &
+  - npm start >> igmrrf.log . &
 script:
   - >-
     istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec

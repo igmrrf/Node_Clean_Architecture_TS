@@ -7,25 +7,32 @@
 import config from "config";
 import { format, default as winston } from "winston";
 import { Loggly } from "winston-loggly-bulk";
+import { ConsoleTransportInstance } from "winston/lib/winston/transports";
 
 const token = config.get("loggly.token");
 const tags = config.get("loggly.tags");
 const subdomain = config.get("loggly.subdomain");
+const node_env = config.get("app.env");
+
+const transports: (ConsoleTransportInstance | Loggly)[] = [
+  new winston.transports.Console({
+    format: format.combine(
+      winston.format.colorize(),
+      format.timestamp({
+        format: "YYYY-MM-DD HH:mm:ss",
+      }),
+      format.simple(),
+    ),
+  }),
+];
+
+if (node_env === "production") {
+  transports.unshift(new Loggly({ token, tags, subdomain, json: true }));
+}
 
 const logger = winston.createLogger({
   level: "info",
-  transports: [
-    new Loggly({ token, tags, subdomain, json: true }),
-    new winston.transports.Console({
-      format: format.combine(
-        winston.format.colorize(),
-        format.timestamp({
-          format: "YYYY-MM-DD HH:mm:ss",
-        }),
-        format.simple(),
-      ),
-    }),
-  ],
+  transports,
   // Stores all uncaught exceptions
   exceptionHandlers: [
     new winston.transports.Console({
