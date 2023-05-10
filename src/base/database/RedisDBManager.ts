@@ -5,14 +5,20 @@ import Redis, { RedisKey, RedisValue } from "ioredis";
 import { Logger } from "winston";
 
 class RedisDBManager {
-  config!: Config<unknown>;
+  config!: Config<{ [key: string]: string | number | object }>;
   logger: Logger;
   appName: any;
   cacheExpiry: any;
   key = "";
   client: Redis;
 
-  constructor({ config, logger }: { config: Config<unknown>; logger: Logger }) {
+  constructor({
+    config,
+    logger,
+  }: {
+    config: Config<{ [key: string]: string | number | object }>;
+    logger: Logger;
+  }) {
     this.config = config;
     this.logger = logger;
     // const redisUrl = config.get("redis.url");

@@ -13,12 +13,14 @@ export default ({
   containerMiddleware,
   error404,
   errorHandler,
+  Sentry,
 }: {
   cache: any;
   config: any;
   containerMiddleware: any;
   error404: any;
   errorHandler: any;
+  Sentry: any;
 }) => {
   const router = Router();
   router.use(helmet());
@@ -57,9 +59,12 @@ export default ({
 
   router.use(containerMiddleware);
 
-  router.get("/", (req, res) => res.json({ message: "Node_Clean" }));
+  router.get("/", (req, res) => {
+    res.json({ message: "Node_Clean" });
+  });
 
   router.use("/v1", v1Routes);
+  router.use(Sentry.Handlers.errorHandler());
 
   router.use(error404);
 

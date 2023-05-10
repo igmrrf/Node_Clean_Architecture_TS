@@ -5,7 +5,7 @@ class Stripe {
   [x: string]: any;
   stripe: StripePayment;
 
-  constructor({ config }: { config: Config<unknown> }) {
+  constructor({ config }: { config: Config<{ [key: string]: string | number | object }> }) {
     const secretKey = config.get("stripe.stripeSK");
     this.stripe = new StripePayment(secretKey, { typescript: true, apiVersion: "2022-08-01" });
   }

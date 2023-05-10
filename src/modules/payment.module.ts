@@ -9,7 +9,7 @@ class Paystack {
   paystackSK: string;
   httpClient: Axios;
 
-  constructor({ config }: { config: Config<unknown> }) {
+  constructor({ config }: { config: Config<{ [key: string]: string | number | object }> }) {
     const paystackUrl = config.get("paystack.paystackBaseUrl");
     const paystackSK = config.get("paystack.paystackSK");
     const httpClient = axios.create({

@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/node";
 import { asClass, asFunction, asValue, createContainer, InjectionMode, Lifetime } from "awilix";
 import { scopePerRequest } from "awilix-express";
 import MongoDB from "base/database/MongoDBManager";
@@ -23,6 +24,7 @@ container.register({
   cache: asClass(RedisDBManager).singleton(),
   models: asValue(mongodbModels),
   logger: asValue(logger),
+  Sentry: asValue(Sentry),
   containerMiddleware: asValue(scopePerRequest(container)),
   routes: asFunction(routes),
   responseBuilder: asClass(ResponseManager).singleton(),

@@ -1,0 +1,27 @@
+sudo: false
+language: node_js
+services:
+  - mongodb
+  - redis-server
+env:
+  - MONGOLAB_URL=mongodb://127.0.0.1/snipe LOG_MONGOLAB_URL=mongodb://127.0.0.1/snipelogs REDIS_URL=redis://127.0.0.1/1 SECURE_MODE=true NO_CACHE=no
+addons:
+  apt:
+    sources:
+      - mongodb-3.0-precise
+    packages:
+      - mongodb-org-server
+node_js:
+  - "8"
+before_script:
+  - sleep 15
+  - npm install -g gulp mocha gulp-cli codecov istanbul
+install:
+  - npm install
+  - gulp service -n api
+  - gulp service -n test -b http://localhost:8080 -e apis
+  - npm start >> femi.log . &
+script:
+  - >-
+    istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec
+    && codecov

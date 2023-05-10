@@ -13,7 +13,7 @@ export const app = {
   serviceVersion: {
     doc: "Application version",
     format: "*",
-    default: 1.0,
+    default: 0.1,
     sensitive: false,
   },
   httpPort: {
