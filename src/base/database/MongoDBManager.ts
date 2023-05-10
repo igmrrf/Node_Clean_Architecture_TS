@@ -11,19 +11,25 @@ enum configs {
   APP_ENV = "app.env",
 }
 class MongoDBManager {
-  config: Config<unknown>;
+  config: Config<{ [key: string]: string | number | object }>;
   logger: Logger;
   connectionString: string;
   connection: Connection;
 
-  constructor({ config, logger }: { config: Config<unknown>; logger: Logger }) {
+  constructor({
+    config,
+    logger,
+  }: {
+    config: Config<{ [key: string]: string | number | object }>;
+    logger: Logger;
+  }) {
     this.config = config;
     this.logger = logger;
 
     this.connectionString = MongoDBManager.connectionString();
     this.connection = mongoose.connection;
     mongoose.set("strictQuery", true);
-    if (this.config.get("app.env" as unknown as undefined) === "development") {
+    if (this.config.get("app.env") === "development") {
       mongoose.set("debug", true);
     }
 

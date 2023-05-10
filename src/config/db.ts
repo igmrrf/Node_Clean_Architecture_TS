@@ -2,7 +2,7 @@ export const db = {
   auth: {
     doc: "Database requires authentication",
     format: Boolean,
-    default: true,
+    default: false,
     env: "MONGO_AUTH",
     sensitive: false,
   },

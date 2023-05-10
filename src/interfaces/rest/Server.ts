@@ -1,3 +1,4 @@
+import { RewriteFrames } from "@sentry/integrations";
 import { Config } from "convict";
 import express, { Router } from "express";
 import http, { Server } from "http";
@@ -8,16 +9,49 @@ import { Logger } from "winston";
  * Creates and configures an HTTP server
  */
 class RestServer {
-  config: Config<unknown>;
+  config: Config<{ [key: string]: string | number | object }>;
   server: Server;
   logger: Logger;
 
-  constructor({ config, routes, logger }: { config: Config<unknown>; routes: Router; logger: Logger }) {
+  constructor({
+    config,
+    routes,
+    logger,
+    Sentry,
+  }: {
+    config: Config<{ [key: string]: string | number | object }>;
+    routes: Router;
+    logger: Logger;
+    Sentry: any;
+  }) {
     const app = express();
     app.disable("x-powered-by");
     // URL for API documentation
     app.use("/rest-docs", express.static(path.resolve(__dirname, "../../../docs/apidocs/")));
+    const dsn = config.get("sentry.dsn");
+    Sentry.init({
+      dsn,
+      integrations: [
+        // enable HTTP calls tracing
+        new Sentry.Integrations.Http({ tracing: true }),
+        new RewriteFrames({
+          root: global.__dirname,
+        }),
+        // Automatically instrument Node.js libraries and frameworks
+        ...Sentry.autoDiscoverNodePerformanceMonitoringIntegrations(),
+      ],
 
+      // Set tracesSampleRate to 1.0 to capture 100%
+      // of transactions for performance monitoring.
+      // We recommend adjusting this value in production
+      tracesSampleRate: 1.0,
+    });
+
+    // RequestHandler creates a separate execution context, so that all
+    // transactions/spans/breadcrumbs are isolated across requests
+    app.use(Sentry.Handlers.requestHandler());
+    // TracingHandler creates a trace for every incoming request
+    app.use(Sentry.Handlers.tracingHandler());
     app.use(routes);
     app.use("/v1/payments/", express.static(path.join(__dirname, "public/")));
     this.server = http.createServer(app);

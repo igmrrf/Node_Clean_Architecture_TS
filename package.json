@@ -41,6 +41,9 @@
     "-": "^0.0.1",
     "@faker-js/faker": "^7.0.0",
     "@sendgrid/mail": "^7.6.2",
+    "@sentry/integrations": "^7.51.2",
+    "@sentry/node": "^7.51.2",
+    "@types/winston-loggly-bulk": "^3.0.3",
     "D": "^1.0.0",
     "apidoc": "^0.53.0",
     "awilix": "^8.0.0",
@@ -75,7 +78,8 @@
     "pm2": "^5.2.2",
     "request-ip": "^3.0.0",
     "stripe": "^10.0.0",
-    "winston": "^3.3.3"
+    "winston": "^3.3.3",
+    "winston-loggly-bulk": "^3.2.1"
   },
   "devDependencies": {
     "@babel/cli": "7.19.3",
