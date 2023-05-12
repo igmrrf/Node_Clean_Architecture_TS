@@ -1,42 +1,39 @@
-import { Config } from "convict";
 import { NextFunction, Request, Response } from "express";
+import { ConvictConfig } from "helpers/types";
 import ResponseManager from "interfaces/rest/response/ResponseBuilder";
 import Redis, { RedisKey, RedisValue } from "ioredis";
 import { Logger } from "winston";
 
 class RedisDBManager {
-  config!: Config<{ [key: string]: string | number | object }>;
+  config!: ConvictConfig;
   logger: Logger;
-  appName: any;
-  cacheExpiry: any;
-  key = "";
+  appName: string;
+  cacheExpiry: number;
+  key: string;
   client: Redis;
 
-  constructor({
-    config,
-    logger,
-  }: {
-    config: Config<{ [key: string]: string | number | object }>;
-    logger: Logger;
-  }) {
+  constructor({ config, logger }: { config: ConvictConfig; logger: Logger }) {
     this.config = config;
     this.logger = logger;
+    this.key = "";
     // const redisUrl = config.get("redis.url");
     // this.client = new Redis({ url: redisUrl });
     // Todo: Solve the typescript error on config
+    const redisHost = config.get("redis.host");
+    const redisPort = config.get("redis.port");
     this.appName = config.get("app.serviceName");
     this.cacheExpiry = config.get("app.cacheExpiry");
-    this.client = new Redis();
-    this.client.on("error", (err: any) => this.logger.error("Redis Client Error: ", err));
+    this.client = new Redis({ port: redisPort, host: redisHost });
+    this.client.on("error", (err) => this.logger.error("Redis Client Error: ", err));
     this.client.on("connect", () => this.logger.info("Attempting to Connect to Redis"));
     this.client.on("ready", () => this.logger.info("Successfully connected to Redis"));
   }
 
-  async disconnect() {
+  disconnect() {
     this.logger.info("Disconnecting REDIS...");
     try {
-      await this.client.disconnect();
-    } catch (error: any) {
+      this.client.disconnect();
+    } catch (error) {
       this.logger.error("Error while disconnecting Redis Database", { error });
       process.exit(1);
     }
@@ -50,10 +47,11 @@ class RedisDBManager {
       res.set({ "Cache-Control": `private, max-age=${this.cacheExpiry}` });
 
       if (this.key) {
-        const cacheResponse = await this.client.get(this.key);
+        const cacheResponse: string | null = await this.client.get(this.key);
 
         if (cacheResponse) {
-          const response = JSON.parse(cacheResponse);
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          const response: object = JSON.parse(cacheResponse);
           return ResponseManager.getResponseHandler(req, res).onSuccess(response);
         }
       }

@@ -135,3 +135,39 @@ I was trying to make this as lean as possible, but if you think there's somethin
 A litmus test for whether an app has all config correctly factored out of the code is whether the codebase could be made open source at any moment, without compromising any credentials.
 
 https://github.com/fluent/fluentd
+
+{
+
+"extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "airbnb-base", "prettier"],
+"plugins": ["@typescript-eslint"],
+"parser": "@typescript-eslint/parser",
+"parserOptions": {
+"project": true,
+"tsconfigRootDir": "\_\_dirname"
+},
+"ignorePatterns": ["src/scripts/gen/*"],
+
+"root": true,
+"rules": {
+"quotes": [2, "double", { "avoidEscape": true }],
+"max-len": ["warn", { "code": 14 }],
+"no-underscore-dangle": [
+"error",
+{
+"allow": ["_id"]
+}
+],
+"import/prefer-default-export": "off",
+"class-methods-use-this": "off",
+"import/no-dynamic-require": "off"
+},
+"settings": {
+"import/resolver": {
+"babel-module": {},
+"node": {
+"paths": ["src"],
+"extensions": [".js", ".jsx", ".ts", ".tsx"]
+}
+}
+}
+}

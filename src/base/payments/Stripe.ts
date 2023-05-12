@@ -1,11 +1,10 @@
-import { Config } from "convict";
+import { ConvictConfig } from "helpers/types";
 import { Stripe as StripePayment } from "stripe";
 
 class Stripe {
-  [x: string]: any;
   stripe: StripePayment;
 
-  constructor({ config }: { config: Config<{ [key: string]: string | number | object }> }) {
+  constructor({ config }: { config: ConvictConfig }) {
     const secretKey = config.get("stripe.stripeSK");
     this.stripe = new StripePayment(secretKey, { typescript: true, apiVersion: "2022-08-01" });
   }

@@ -5,7 +5,7 @@ import MongoDB from "base/database/MongoDBManager";
 import RedisDBManager from "base/database/RedisDBManager";
 import logger from "base/logger";
 import PaymentService from "base/payments/Stripe";
-import StorageService from "base/storage/Cloudinary";
+import StorageService from "base/storage/AmazonS3";
 import config from "config";
 import mongodbModels from "containers/models";
 import ErrorHandler from "interfaces/rest/middlewares/errorHandler";

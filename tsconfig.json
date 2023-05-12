@@ -1,37 +1,27 @@
 {
   "compilerOptions": {
-    "importHelpers": true,
-    // "moduleResolution": "node16",
-    // Target latest version of ECMAScript.
-    "target": "ES5",
-    // Don't emit; allow Babel to transform files.
-    // "noEmit": true,
-    // Ensure that .d.ts files are created by tsc, but not .js files
+    "module": "commonjs",
     "declaration": true,
-    // "emitDeclarationOnly": true,
-    // Ensure that Babel can safely transpile files in the TypeScript project
-    "isolatedModules": true /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-    "lib": ["es5"],
-    "module": "commonjs" /* Specify what module code is generated. */,
-    "rootDir": "./src" /* Specify the root folder within your source files. */,
-    "resolveJsonModule": true /* Enable importing .json files. */,
-
-    "allowJs": true /* Allow JavaScript files to be a part of your program. Use the 'checkJS' option to get errors from these files. */,
-    "outDir": "typed" /* Specify an output folder for all emitted files. */,
-    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
-    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
-
-    "strict": true /* Enable all strict type-checking options. */,
-    "noImplicitAny": true /* Enable error reporting for expressions and declarations with an implied 'any' type. */,
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": false,
-    // !remove
-    // "strictFunctionTypes": true,
-    // "strictBindCallApply": true,
-    // "moduleDetection": "auto",
-
+    "target": "ES2017",
+    "outDir": "typed",
     "baseUrl": "./src",
+    "sourceMap": true,
+    "incremental": true,
+    "skipLibCheck": true,
+    "strict": true,
+    // "noImplicitAny": true,
+    "isolatedModules": true,
+    "importHelpers": true,
+    "rootDir": "./src",
+    "lib": ["es5"],
+    "resolveJsonModule": true,
+    "allowJs": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
 
     "paths": {
       "con": ["./"],

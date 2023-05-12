@@ -18,7 +18,7 @@ class TodoRepository extends BaseRepository {
 
   async create(payload: any): Promise<any> {
     if (payload.title) {
-      const existingTodo = await this.find({ title: payload.title }, undefined, {
+      const existingTodo: ITodo = await this.find({ title: payload.title }, undefined, {
         lean: true,
       });
       if (existingTodo) {

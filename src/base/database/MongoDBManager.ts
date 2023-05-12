@@ -1,28 +1,19 @@
 import logger from "base/logger";
 import config from "config";
-import { Config } from "convict";
+import { ConvictConfig } from "helpers/types";
 import mongoose, { Connection } from "mongoose";
 import { Logger } from "winston";
 /**
  * Manages connection to MongoDB
  */
 
-enum configs {
-  APP_ENV = "app.env",
-}
 class MongoDBManager {
-  config: Config<{ [key: string]: string | number | object }>;
+  config: ConvictConfig;
   logger: Logger;
   connectionString: string;
   connection: Connection;
 
-  constructor({
-    config,
-    logger,
-  }: {
-    config: Config<{ [key: string]: string | number | object }>;
-    logger: Logger;
-  }) {
+  constructor({ config, logger }: { config: ConvictConfig; logger: Logger }) {
     this.config = config;
     this.logger = logger;
 
@@ -35,9 +26,7 @@ class MongoDBManager {
 
     this.connection.on("open", () => this.logger.info("Successfully connected to MongoDB"));
     this.connection.on("disconnected", () => this.logger.info("Disconnected from MongoDB"));
-    this.connection.on("error", (error: any) =>
-      this.logger.error("Error while connecting to MongoDB", error.message),
-    );
+    this.connection.on("error", (error) => this.logger.error("Error while connecting to MongoDB", error.message));
   }
 
   /**
@@ -53,7 +42,7 @@ class MongoDBManager {
         maxPoolSize: poolSize,
         autoIndex,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       this.logger.error("Failed to connected to MongoDB", error);
       if (numOfRetries <= 0) {
         this.logger.error("Exhausted max number of retries for connecting to MongoDB");
@@ -68,9 +57,9 @@ class MongoDBManager {
   static connectionString() {
     const user = encodeURIComponent(config.get("db.user"));
     const password = encodeURIComponent(config.get("db.password"));
-    const host = config.get("db.host");
-    const name = config.get("db.name");
-    const auth = config.get("db.auth");
+    const host: string = config.get("db.host");
+    const name: string = config.get("db.name");
+    const auth: boolean = config.get("db.auth");
 
     let connectionString = `mongodb://${host}/${name}`;
     if (auth) {
@@ -93,7 +82,7 @@ class MongoDBManager {
 
       const mongo = mongoose.createConnection();
       _connections[DBName] = await mongo.openUri(MongoDBManager.connectionString(), opt);
-      mongo.on("error", (error: any) => {
+      mongo.on("error", (error: Error) => {
         logger.error(error.message);
       });
       mongo.once("open", () => {

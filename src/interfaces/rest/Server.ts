@@ -1,6 +1,7 @@
 import { RewriteFrames } from "@sentry/integrations";
 import { Config } from "convict";
 import express, { Router } from "express";
+import { ConvictConfig } from "helpers/types";
 import http, { Server } from "http";
 import path from "path";
 import { Logger } from "winston";
@@ -9,7 +10,7 @@ import { Logger } from "winston";
  * Creates and configures an HTTP server
  */
 class RestServer {
-  config: Config<{ [key: string]: string | number | object }>;
+  config: ConvictConfig;
   server: Server;
   logger: Logger;
 
@@ -19,7 +20,7 @@ class RestServer {
     logger,
     Sentry,
   }: {
-    config: Config<{ [key: string]: string | number | object }>;
+    config: ConvictConfig;
     routes: Router;
     logger: Logger;
     Sentry: any;
@@ -27,7 +28,6 @@ class RestServer {
     const app = express();
     app.disable("x-powered-by");
     // URL for API documentation
-    app.use("/rest-docs", express.static(path.resolve(__dirname, "../../../docs/apidocs/")));
     const dsn = config.get("sentry.dsn");
     Sentry.init({
       dsn,
@@ -52,6 +52,7 @@ class RestServer {
     app.use(Sentry.Handlers.requestHandler());
     // TracingHandler creates a trace for every incoming request
     app.use(Sentry.Handlers.tracingHandler());
+    app.use("/rest-docs", express.static(path.resolve(__dirname, "../../../docs/apidocs/")));
     app.use(routes);
     app.use("/v1/payments/", express.static(path.join(__dirname, "public/")));
     this.server = http.createServer(app);

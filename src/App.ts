@@ -46,6 +46,7 @@ class App {
           error: err.message,
         });
       }
+      console.log("Shutting down REST server");
       await this.cache.disconnect();
       await this.db.close();
 

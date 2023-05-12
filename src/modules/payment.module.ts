@@ -1,6 +1,6 @@
 import axios, { Axios } from "axios";
 import logger from "base/logger";
-import { Config } from "convict";
+import { ConvictConfig } from "helpers/types";
 import BadGatewayError from "interfaces/rest/errors/BadGatewayError";
 import InvalidPayloadError from "interfaces/rest/errors/InvalidPayloadError";
 
@@ -9,7 +9,7 @@ class Paystack {
   paystackSK: string;
   httpClient: Axios;
 
-  constructor({ config }: { config: Config<{ [key: string]: string | number | object }> }) {
+  constructor({ config }: { config: ConvictConfig }) {
     const paystackUrl = config.get("paystack.paystackBaseUrl");
     const paystackSK = config.get("paystack.paystackSK");
     const httpClient = axios.create({
