@@ -1,6 +1,14 @@
 {
   "version": 2,
-  "name": "name-of-your-vercel-app",
-  "builds": [{ "src": "script.js", "use": "@vercel/node" }],
-  "routes": [{ "src": "/(.*)", "dest": "/index.js" }]
+  "name": "hello-nest-ve",
+  "builds": [
+    {
+      "src": "/dist/index.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["dist/**"]
+      }
+    }
+  ],
+  "routes": [{ "src": "/(.*)", "dest": "/dist/index.js" }]
 }
