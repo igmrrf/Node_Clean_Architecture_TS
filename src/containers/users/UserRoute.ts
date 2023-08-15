@@ -3,6 +3,7 @@ import { Router } from "express";
 import CheckAuth from "interfaces/rest/middlewares/checkAuthentication";
 import MethodNotAllowedHandler from "interfaces/rest/middlewares/methodNotAllowed";
 import validateError from "modules/validator.module";
+import passport from "passport";
 import UserController from "./UserController";
 import UserValidation from "./UserValidation";
 
@@ -25,8 +26,6 @@ const { create, getOne, getAll, update, remove, login } = UserValidation;
     "data": {
         "username": "test122",
         "email": "francis.igbiriki@gmail.com",
-        "discord": "test123",
-        "twitter": "test123",
         "type": "customer",
         "_id": "6265a7c9c9e6c53edadfc19c",
         "created_at": "2022-04-24T19:40:57.641Z",
@@ -50,8 +49,6 @@ const { create, getOne, getAll, update, remove, login } = UserValidation;
     "data": {
         "username": "test122",
         "email": "francis.igbiriki@gmail.com",
-        "discord": "test123",
-        "twitter": "test123",
         "type": "customer",
         "_id": "6265a7c9c9e6c53edadfc19c",
         "created_at": "2022-04-24T19:40:57.641Z",
@@ -76,8 +73,6 @@ const { create, getOne, getAll, update, remove, login } = UserValidation;
     "data": {
         "username": "test122",
         "email": "francis.igbiriki@gmail.com",
-        "discord": "test123",
-        "twitter": "test123",
         "type": "customer",
         "_id": "6265a7c9c9e6c53edadfc19c",
         "created_at": "2022-04-24T19:40:57.641Z",
@@ -101,7 +96,6 @@ const { create, getOne, getAll, update, remove, login } = UserValidation;
     "data": [{
         "username": "test122",
         "email": "francis.igbiriki@gmail.com",
-        "discord": "test123",
         "twitter": "test123",
         "type": "customer",
         "_id": "6265a7c9c9e6c53edadfc19c",
@@ -127,8 +121,6 @@ const { create, getOne, getAll, update, remove, login } = UserValidation;
     "data": {
         "username": "test122",
         "email": "francis.igbiriki@gmail.com",
-        "discord": "test123",
-        "twitter": "test123",
         "type": "customer",
         "_id": "6265a7c9c9e6c53edadfc19c",
         "created_at": "2022-04-24T19:40:57.641Z",
@@ -145,7 +137,10 @@ router
   .all(MethodNotAllowedHandler);
 
 router.route("/auth").post(Auth("allowAny"), login, validateError, api("login")).all(MethodNotAllowedHandler);
-
+router.route("/auth/google").get(passport.authenticate("google", { scope: ["profile", "email"] }));
+router
+  .route("/auth/google/callback")
+  .get(passport.authenticate("google", { failureRedirect: "/login" }), api("login"));
 router
   .route("/:id")
   .delete(Auth("isStaff"), remove, validateError, api("deleteUser"))

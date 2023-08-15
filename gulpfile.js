@@ -6,7 +6,7 @@ const parseArgs = require("minimist");
 const conventionalChangelog = require("gulp-conventional-changelog");
 const conventionalGithubReleaser = require("conventional-github-releaser");
 const bump = require("gulp-bump");
-const gulpUtil = require("gulp-util");
+const log = require("fancy-log");
 const git = require("gulp-git");
 const fs = require("fs");
 
@@ -26,7 +26,7 @@ gulp.task("bump-version", function () {
   } else {
     return gulp
       .src(["./package.json"])
-      .pipe(bump({ type: args.r }).on("error", gulpUtil.log))
+      .pipe(bump({ type: args.r }).on("error", log))
       .pipe(gulp.dest("./"));
   }
 });

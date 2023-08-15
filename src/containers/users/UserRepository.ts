@@ -22,7 +22,7 @@ class UserRepository extends BaseRepository {
   }
 
   async create(payload: any) {
-    const { email, discord, twitter } = payload;
+    const { email } = payload;
     let existingUserName;
     if (payload.tenant) {
       const User = await this.User.override(payload.tenant);
@@ -46,37 +46,31 @@ class UserRepository extends BaseRepository {
       const newUser = await this.createDoc({
         username: payload.username,
         email,
-        discord,
-        twitter,
       });
       return newUser.getPublicFields();
     }
 
-    const stripe = new PaymentService({ config });
-    const stripe_customer = await stripe.createAccount({
-      email: payload.email,
-      name: payload.first_name,
-    });
+    // const stripe = new PaymentService({ config });
+    // const stripe_customer = await stripe.createAccount({
+    //   email: payload.email,
+    //   name: payload.first_name,
+    // });
 
     let newUser;
     if (payload.tenant) {
       const User = await this.User.override(payload.tenant);
       newUser = User({
-        stripe_customer,
+        // stripe_customer,
         username: payload.username,
         email,
-        discord,
-        twitter,
         tenant: payload.tenant,
       });
       newUser = await newUser.save();
     } else {
       newUser = await this.createDoc({
-        stripe_customer,
+        // stripe_customer,
         username: payload.username,
         email,
-        discord,
-        twitter,
       });
     }
 
@@ -84,7 +78,7 @@ class UserRepository extends BaseRepository {
   }
 
   async createTenant(payload: any) {
-    const { email, discord, twitter, tenant } = payload;
+    const { email, tenant } = payload;
 
     const existingUserName = await this.User.override(tenant).find(
       { username: payload.username },
@@ -103,8 +97,6 @@ class UserRepository extends BaseRepository {
       const newUser = await this.createDoc({
         username: payload.username,
         email,
-        discord,
-        twitter,
       });
       return newUser.getPublicFields();
     }
@@ -119,8 +111,6 @@ class UserRepository extends BaseRepository {
       stripe_customer,
       username: payload.username,
       email,
-      discord,
-      twitter,
     });
 
     return newUser.getPublicFields();

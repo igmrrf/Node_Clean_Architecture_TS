@@ -1,4 +1,5 @@
 import BaseRepository from "base/repositories";
+import { Queue } from "bullmq";
 import ConflictError from "interfaces/rest/errors/ConflictError";
 import ResourceNotFoundError from "interfaces/rest/errors/ResourceNotFoundError";
 import { HydratedDocument, Models } from "mongoose";
@@ -8,10 +9,19 @@ import { ITodo } from "./TodoTypes";
 class TodoRepository extends BaseRepository {
   Todo: Models;
   currentUser: HydratedDocument<ITodo>;
+  notificationQueue: Queue;
 
-  constructor({ models: { Todo }, currentUser }: { models: any; currentUser: any }) {
+  constructor({
+    models: { Todo },
+    queues: { notificationQueue },
+    currentUser,
+  }: {
+    models: any;
+    queues: any;
+    currentUser: any;
+  }) {
     super({ Model: Todo.default });
-
+    this.notificationQueue = notificationQueue;
     this.Todo = Todo;
     this.currentUser = currentUser;
   }
@@ -28,6 +38,27 @@ class TodoRepository extends BaseRepository {
     const newTodo: HydratedDocument<ITodo, Todo> = await this.createDoc({
       ...payload,
     });
+    await this.notificationQueue.add(
+      "todo_created",
+      {
+        todo: newTodo.getPublicFields(),
+      },
+      {
+        delay: 1000,
+        repeat: {
+          // every: 1000,
+          limit: 10,
+          pattern: "*/1 * * * *",
+        },
+        jobId: newTodo._id.toString(),
+      },
+    );
+
+    const repeatableJobs = await this.notificationQueue.getRepeatableJobs();
+    console.log({ repeatableJobs });
+    const jobs = await this.notificationQueue.getJobs(["completed"]);
+    console.log({ jobs });
+
     return newTodo.getPublicFields();
   }
 

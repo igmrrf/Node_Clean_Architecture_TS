@@ -13,8 +13,6 @@ class User {
   last_name?: string;
   username?: string;
   email?: string;
-  discord?: string;
-  twitter?: string;
   type?: string;
   coupons?: string[];
   stripe_customer?: string;
@@ -33,8 +31,6 @@ class User {
       _id: this._id,
       username: this.username,
       email: this.email,
-      discord: this.discord,
-      twitter: this.twitter,
       tenant: this.tenant,
       type: this.type,
       coupons: this.coupons,

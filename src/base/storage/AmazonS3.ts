@@ -1,4 +1,4 @@
-import { S3 } from "aws-sdk";
+import { S3 } from "@aws-sdk/client-s3";
 import fs from "fs";
 import { ConvictConfig } from "helpers/types";
 import { Logger } from "winston";
@@ -13,14 +13,17 @@ class AmazonS3 {
   constructor({ config, logger }: { config: ConvictConfig; logger: Logger }) {
     this.bucketName = config.get("aws.bucketName");
     this.region = config.get("aws.region");
-    const secretKey = config.get("aws.secretKey");
-    const accessKey = config.get("aws.accessKey");
+    const secretKey: string = config.get("aws.secretKey");
+    const accessKey: string = config.get("aws.accessKey");
     this.config = config;
     this.logger = logger;
     this.s3 = new S3({
-      secretAccessKey: secretKey,
-      accessKeyId: accessKey,
+      serviceId: "s3",
       region: this.region,
+      credentials: {
+        accessKeyId: accessKey,
+        secretAccessKey: secretKey,
+      },
     });
   }
 

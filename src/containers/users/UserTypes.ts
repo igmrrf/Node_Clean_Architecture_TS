@@ -7,8 +7,6 @@ export interface IUser {
   last_name: string;
   username: string;
   email: string;
-  discord: string;
-  twitter: string;
   type: string;
   verified: boolean;
   referrals: string[];

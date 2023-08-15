@@ -1,3 +1,4 @@
+import container from "container";
 import { Request, Response } from "express";
 import HttpStatus from "http-status-codes";
 
@@ -57,6 +58,13 @@ class ResponseManager {
     response.data = data;
     response.links = links;
     response.status_code = code;
+    console.log({ req });
+    if (req?.method === "GET") {
+      console.log({ low: "here" });
+      const redis = container.resolve("redis");
+      redis.cacheSetter(req, response);
+      // const redis = container.resolve("redis");
+    }
     return res.status(code).json(response);
   }
 

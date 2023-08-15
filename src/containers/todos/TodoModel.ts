@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import Todo from "./TodoEntity";
 import { ITodo } from "./TodoTypes";
 
-const todoSchema = new mongoose.Schema<ITodo>(
+const todoSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -12,6 +12,18 @@ const todoSchema = new mongoose.Schema<ITodo>(
     description: {
       type: String,
       unique: true,
+    },
+    odd: {
+      type: String,
+      default: (object: any) => {
+        if (object) {
+          console.log({ object });
+        }
+        if (this) {
+          console.log({ ok: this });
+        }
+        return "";
+      },
     },
     importance: {
       type: String,
@@ -64,5 +76,4 @@ export async function override(database: string) {
 
   return db.model(collection, todoSchema);
 }
-
 export default mongoose.model<ITodo>(collection, todoSchema);

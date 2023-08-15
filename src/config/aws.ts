@@ -1,23 +1,23 @@
-export const cloudinary = {
+export const aws = {
   cloudName: {
-    doc: "Cloudinary cloud name",
+    doc: "AWS cloud name",
     format: "*",
     default: null,
-    env: "CLOUDINARY_CLOUD_NAME",
+    env: "S3_CLOUD_NAME",
     sensitive: true,
   },
   apiKey: {
-    doc: "Cloudinary API key",
+    doc: "AWS API key",
     format: "*",
     default: null,
-    env: "CLOUDINARY_API_KEY",
+    env: "S3_API_KEY",
     sensitive: true,
   },
   apiSecret: {
-    doc: "Cloudinary API secret",
+    doc: "AWS API secret",
     format: "*",
     default: null,
-    env: "CLOUDINARY_API_SECRET",
+    env: "S3_API_SECRET",
     sensitive: true,
   },
 };

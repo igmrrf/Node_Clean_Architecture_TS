@@ -23,7 +23,6 @@ class MongoDBManager {
     if (this.config.get("app.env") === "development") {
       mongoose.set("debug", true);
     }
-
     this.connection.on("open", () => this.logger.info("Successfully connected to MongoDB"));
     this.connection.on("disconnected", () => this.logger.info("Disconnected from MongoDB"));
     this.connection.on("error", (error) => this.logger.error("Error while connecting to MongoDB", error.message));
@@ -55,11 +54,11 @@ class MongoDBManager {
   }
 
   static connectionString() {
-    const user = encodeURIComponent(config.get("db.user"));
-    const password = encodeURIComponent(config.get("db.password"));
-    const host: string = config.get("db.host");
-    const name: string = config.get("db.name");
-    const auth: boolean = config.get("db.auth");
+    const user = encodeURIComponent(config.get("mongo.user"));
+    const password = encodeURIComponent(config.get("mongo.password"));
+    const host: string = config.get("mongo.host");
+    const name: string = config.get("mongo.name");
+    const auth: boolean = config.get("mongo.auth");
 
     let connectionString = `mongodb://${host}/${name}`;
     if (auth) {

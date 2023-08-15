@@ -51,6 +51,13 @@ export const app = {
     env: "ALLOWED_ORIGINS",
     sensitive: false,
   },
+  sessionKey: {
+    doc: "Session key",
+    format: "*",
+    default: "session_key",
+    env: "SESSION_KEY",
+    sensitive: true,
+  },
   jwtSecret: {
     doc: "Secret key for signing JWT",
     format: "*",

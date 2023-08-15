@@ -1,6 +1,5 @@
 import MongoDBManager from "base/database/MongoDBManager";
 import mongoose, { Schema } from "mongoose";
-import path from "path";
 import User from "./UserEntity";
 import { IUser, IUserMethods, UserModel } from "./UserTypes";
 
@@ -10,7 +9,7 @@ const userSchema = new mongoose.Schema<IUser, UserModel, IUserMethods>(
       type: String,
       required: true,
       lowercase: true,
-      unique: true,
+      // unique: true,
     },
     tenant: {
       type: String,
@@ -20,14 +19,6 @@ const userSchema = new mongoose.Schema<IUser, UserModel, IUserMethods>(
       type: String,
       required: true,
       lowercase: true,
-    },
-    discord: {
-      type: String,
-      required: true,
-    },
-    twitter: {
-      type: String,
-      required: true,
     },
     type: {
       type: String,

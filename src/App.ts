@@ -7,39 +7,50 @@ import { Logger } from "winston";
 class App {
   restServer: any;
   logger: Logger;
-  db: any;
-  cache: any;
+  mongo: any;
+  redis: any;
+  queue: any;
 
   constructor({
     restServer,
     logger,
-    db,
-    cache,
+    mongo,
+    redis,
+    queue,
   }: {
     restServer: Server;
     logger: Logger;
-    db: Mongoose;
-    cache: any;
+    mongo: Mongoose;
+    redis: any;
+    queue: any;
   }) {
     this.restServer = restServer;
     this.logger = logger;
-    this.db = db;
-    this.cache = cache;
+    this.mongo = mongo;
+    this.redis = redis;
+    this.queue = queue;
   }
 
   /**
    * Starts the application interfaces to begin handling user requests
    */
   async start() {
-    await this.db.connect();
+    await this.mongo.connect();
+    await this.redis.connect();
     await this.restServer.start();
+    await this.queue.startWorkers();
   }
 
   /**
    * Closes the application's interfaces
    */
-  shutdown() {
-    this.restServer.close(async (err: any) => {
+  async shutdown() {
+    this.logger.info("Shutting Dependent Services");
+    await this.mongo.close();
+    await this.redis.disconnect();
+    await this.queue.stopWorkers();
+    this.logger.info("Done shutting down dependent services");
+    this.restServer.close((err: any) => {
       this.logger.info("Shutting down REST server");
       if (err) {
         this.logger.error("Error while shutting down server", {
@@ -47,9 +58,6 @@ class App {
         });
       }
       console.log("Shutting down REST server");
-      await this.cache.disconnect();
-      await this.db.close();
-
       process.exit(err ? 1 : 0);
     });
   }

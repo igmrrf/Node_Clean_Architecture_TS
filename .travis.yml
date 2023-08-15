@@ -4,7 +4,7 @@ services:
   - mongodb
   - redis-server
 env:
-  - MONGOLAB_URL=mongodb://127.0.0.1/snipe LOG_MONGOLAB_URL=mongodb://127.0.0.1/snipelogs REDIS_URL=redis://127.0.0.1/1 SECURE_MODE=true NO_CACHE=no
+  - MONGO_URL=mongodb://127.0.0.1/node_clean LOG_MONGO_URL=mongodb://127.0.0.1/node_cleanLogs REDIS_URL=redis://127.0.0.1/1 SECURE_MODE=true NO_CACHE=no
 addons:
   apt:
     sources:

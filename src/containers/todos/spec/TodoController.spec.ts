@@ -11,6 +11,7 @@ import httpMock from "node-mocks-http";
 import TodoController from "../TodoController";
 import TodoModel from "../TodoModel";
 import TodoRepository from "../TodoRepository";
+import { notificationQueue } from "./../../../base/queue/index";
 import MOCK_DATA from "./MOCK_DATA";
 
 const { todoPayload, userPayload } = MOCK_DATA;
@@ -19,6 +20,7 @@ describe("********** TodoController **********", () => {
   const classInput = {
     models: { Todo: { default: TodoModel } },
     currentUser: userPayload,
+    queues: { notificationQueue },
   };
   const todoRepository = { todoRepository: new TodoRepository(classInput) };
 

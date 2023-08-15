@@ -4,18 +4,11 @@ const UserValidation = {
   create: [
     body("username").notEmpty().withMessage("Username required"),
     body("email").notEmpty().withMessage("Email required"),
-    body("discord").notEmpty().withMessage("Discord username required"),
-    body("twitter").notEmpty().withMessage("Twitter username required"),
   ],
 
   login: [body("username").notEmpty().withMessage("Wallet address required")],
 
-  update: [
-    body("username").notEmpty().withMessage("Username required"),
-    body("discord").notEmpty().withMessage("Discord username required"),
-    body("twitter").notEmpty().withMessage("Twitter username required"),
-    body("verified"),
-  ],
+  update: [body("username").notEmpty().withMessage("Username required"), body("verified")],
 
   getAll: [],
 

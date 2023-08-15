@@ -3,6 +3,7 @@ import models from "containers/models";
 import dbHandler from "helpers/testConfig";
 import TodoRepository from "../TodoRepository";
 import { ITodo } from "../TodoTypes";
+import { notificationQueue } from "./../../../base/queue/index";
 import MOCK_DATA from "./MOCK_DATA";
 
 const { todoPayload, userPayload } = MOCK_DATA;
@@ -10,6 +11,7 @@ const { todoPayload, userPayload } = MOCK_DATA;
 describe("********** TodoRepository **********", () => {
   const dbModels = {
     models,
+    queues: { notificationQueue },
     currentUser: userPayload,
   };
 

@@ -1,0 +1,97 @@
+name: node_clean
+services:
+  node_clean:
+    image: igmrrf/node_clean
+    container_name: node_clean
+    restart: always
+    ports:
+      - 45678:45678
+    depends_on:
+      - mysql
+      - mongodb
+      - redis
+    environment:
+      - PORT=45678
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MONGO_HOST=mongodb:27017
+      - MONGO_PORT=27017
+      - MYSQL_DATABASE=node_clean
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=node_cleanRoot
+      - MYSQL_RETRY=3
+      - MYSQL_DELAY=3000
+    links:
+      - redis
+      - mongodb
+      - mysql
+      - rabbitmq
+    deploy:
+      replicas: 1
+    networks:
+      - node_clean
+
+  redis:
+    image: redis:latest
+    container_name: redis-node_clean
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - node_clean
+
+  redis-commander:
+    container_name: redis-commander-node_clean
+    restart: always
+    hostname: redis-commander
+    image: ghcr.io/joeferner/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    networks:
+      - node_clean
+    ports:
+      - "8081:8081"
+
+  mongodb:
+    image: mongo
+    container_name: mongodb-node_clean
+    restart: always
+    volumes:
+      - ~/node_clean-mongodb:/var/lib/mongodb
+    networks:
+      - node_clean
+    ports:
+      - 27017:27017
+
+  mysql:
+    image: mysql
+    container_name: mysql-node_clean
+    restart: always
+    volumes:
+      - ~/node_clean-mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=node_cleanRoot
+      - MYSQL_DATABASE=node_clean
+    networks:
+      - node_clean
+    ports:
+      - 3306:3306
+
+  rabbitmq:
+    image: rabbitmq
+    container_name: rabbitmq-node_clean
+    restart: always
+    volumes:
+      - ~/node_clean-rabbitmq:/var/lib/rabbidmqd
+    networks:
+      - node_clean
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+volumes:
+  node_clean:
+networks:
+  node_clean:

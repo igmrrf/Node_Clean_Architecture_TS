@@ -7,8 +7,6 @@ const MOCK_DATA = {
     _id: new ObjectId("627bfb540501185343cb822e"),
     email: faker.internet.email(),
     username: "test122",
-    discord: "test123",
-    twitter: "test124",
     first_name: "Test",
     last_name: "Password",
     account_verified: true,

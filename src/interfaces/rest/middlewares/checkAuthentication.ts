@@ -1,16 +1,17 @@
 /**
  * Access control policies
  */
-import { AwilixContainer, asValue } from "awilix";
+import { asValue } from "awilix";
+import container from "container";
 import { NextFunction, Request, Response } from "express";
 import Token from "helpers/jwt";
 import UnauthorizedError from "interfaces/rest/errors/Unauthorized";
 
-declare module "express" {
-  interface Request {
-    container: AwilixContainer;
-  }
-}
+// declare module "express" {
+//   interface Request {
+//     container: AwilixContainer;
+//   }
+// }
 
 /**
  * Authenticates requests made to the server
@@ -51,7 +52,7 @@ class CheckAuth {
       if (!user) {
         throw new UnauthorizedError();
       }
-      req.container.register({
+      container.register({
         currentUser: asValue(user),
       });
       next();
@@ -76,7 +77,7 @@ class CheckAuth {
       if (!staff || staff.type !== "staff") {
         throw new UnauthorizedError();
       }
-      req.container.register({
+      container.register({
         currentUser: asValue(staff),
       });
       next();
@@ -102,7 +103,7 @@ class CheckAuth {
       if (staff.role !== "admin") {
         throw new UnauthorizedError();
       }
-      req.container.register({
+      container.register({
         currentUser: asValue(staff),
       });
       next();
@@ -124,7 +125,7 @@ class CheckAuth {
     try {
       // eslint-disable-next-line no-unused-vars
       const user = await this.getUserFromRequest(req);
-      req.container.register({
+      container.register({
         // currentUser: asValue( user, { lifetime: Lifetime.SCOPED }),
         currentUser: asValue(user),
       });

@@ -1,5 +1,4 @@
 import { RewriteFrames } from "@sentry/integrations";
-import { Config } from "convict";
 import express, { Router } from "express";
 import { ConvictConfig } from "helpers/types";
 import http, { Server } from "http";
@@ -61,6 +60,7 @@ class RestServer {
   }
 
   async start() {
+    console.log("here");
     const port = this.config.get("app.httpPort");
     const serviceName = this.config.get("app.serviceName");
     const serviceVersion = this.config.get("app.serviceVersion");

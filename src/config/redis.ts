@@ -23,7 +23,7 @@ export const redis = {
   name: {
     doc: "The redis database name",
     format: "*",
-    default: "",
+    default: 0,
     env: "REDIS_NAME",
     sensitive: true,
   },

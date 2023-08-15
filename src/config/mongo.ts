@@ -1,4 +1,4 @@
-export const db = {
+export const mongo = {
   auth: {
     doc: "Database requires authentication",
     format: Boolean,

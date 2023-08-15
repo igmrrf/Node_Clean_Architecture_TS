@@ -32,7 +32,7 @@ class UserController extends BaseController {
     this.remove = deleteUser;
     this.getOne = getUser;
     this.getAll = getUsers;
-    this.allowedPayloads = ["username", "email", "discord", "twitter", "type"];
+    this.allowedPayloads = ["username", "email", "type"];
   }
 
   async createUser(req: Request, res: Response) {
@@ -50,7 +50,7 @@ class UserController extends BaseController {
 
   async updateUser(req: Request, res: Response) {
     const { id: _id } = pick(req.params, ["id"]);
-    const body = pick(req.body, ["username", "discord", "twitter", "type", "verified"]);
+    const body = pick(req.body, ["username", "type", "verified"]);
     const payload = { ...body, _id };
     const response = await this.update.execute(payload);
     return this.responseBuilder.getResponseHandler(req, res).onSuccess(response, "User updated successfully");
